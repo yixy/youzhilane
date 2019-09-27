@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://yixy.github.io/youzhilane/sitemap.xml

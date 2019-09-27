@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Tools on 友知弄</title>
+    <link>https://yixy.github.io/youzhilane/tags/tools/</link>
+    <description>Recent content in Tools on 友知弄</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Thu, 26 Sep 2019 12:50:12 +0800</lastBuildDate>
+    
+	<atom:link href="https://yixy.github.io/youzhilane/tags/tools/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>ImageMagick</title>
+      <link>https://yixy.github.io/youzhilane/post/%E5%85%B6%E4%BB%96/%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/imagemagick/</link>
+      <pubDate>Thu, 26 Sep 2019 12:50:12 +0800</pubDate>
+      
+      <guid>https://yixy.github.io/youzhilane/post/%E5%85%B6%E4%BB%96/%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/imagemagick/</guid>
+      <description>ImageMagick简介 ImageMagick是一套功能强大、稳定而且开源的工具集和开发包，可以用来读、写和处理超过89种基本格式的图片文</description>
+    </item>
+    
+  </channel>
+</rss>
