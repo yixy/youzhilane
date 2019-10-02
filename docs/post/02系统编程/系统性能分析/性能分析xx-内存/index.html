@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html lang="zh-cn" itemscope itemtype="http://schema.org/WebPage">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title> - 友知弄</title>
+  
+
+<meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta name="MobileOptimized" content="width"/>
+<meta name="HandheldFriendly" content="true"/>
+
+
+<meta name="applicable-device" content="pc,mobile">
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+<meta name="mobile-web-app-capable" content="yes">
+
+<meta name="author" content="yixy" />
+  <meta name="description" content="性能分析(3)——内存 top命令可以查看系统内存信息，如需详细信息可使用以下命令。其中vmstat可以很好的展示内存和IO信息。
+1. free——系统内存使用情况 free命令可以显示当前系统未使用的和已使用的内存数目，还可以显示被内核使用的内存缓冲区。
+1 2 3 4 5  $ free total used free shared buffers cached Mem: 2079008 520952 1558056 152 68232 396756 -/&#43; buffers/cache: 55964 2023044 Swap: 524284 0 524284    shared：当前已经废弃指标。 buffers：用于块设备I/O的缓冲区高速缓存的大小。 cached：文件系统使用的页缓存大小。 -/&#43; buffers/cache：used=第一部分 used – buffers – cached，代表实际被程序占用的内存；free=第一部分 free &#43; buffers &#43; cached，代表还能被挪用的内存。 swap：交换分区信息。  注意，缓冲区buffer是用来缓冲块设备的，它只记录文件系统的元数据以及跟踪瞬时页面，而缓存cached用来给文件作缓冲。换句话说，缓冲区主要用来存放目录内容，文件属性及权限等，而缓存直接用来记忆打开用户使用过的文件和程序，
+2. vmstat——统计虚拟内存信息 1 2 3 4 5 6 7 8  $ vmstat 1 procs -----------memory---------- ---swap-- -----io---- --system-- -----cpu----- r b swpd free buff cache si so bi bo in cs us sy id wa st 0 0 0 1560036 67508 395308 0 0 0 0 13 11 0 0 100 0 0 0 0 0 1560036 67508 395308 0 0 0 0 50 37 0 0 100 0 0 0 0 0 1560068 67508 395308 0 0 0 0 35 47 0 0 100 0 0 0 0 0 1560068 67508 395308 0 0 0 0 34 43 0 0 100 0 0 0 0 0 1560068 67508 395308 0 0 0 0 33 38 0 0 100 0 0   Procs（进程）" />
+
+  <meta name="keywords" content="essay, notes" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.56.1" />
+
+
+<link rel="canonical" href="https://yixy.github.io/youzhilane/post/02%E7%B3%BB%E7%BB%9F%E7%BC%96%E7%A8%8B/%E7%B3%BB%E7%BB%9F%E6%80%A7%E8%83%BD%E5%88%86%E6%9E%90/%E6%80%A7%E8%83%BD%E5%88%86%E6%9E%90xx-%E5%86%85%E5%AD%98/" />
+
+
+
+<link rel="icon" href="/youzhilane/favicon.ico" />
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/youzhilane/sass/jane.min.af20b78e95c84de86b00a0242a4a77bd2601700e1b250edf27537d957ac0041d.css" integrity="sha256-ryC3jpXITehrAKAkKkp3vSYBcA4bJQ7fJ1N9lXrABB0=" media="screen" crossorigin="anonymous">
+
+
+
+
+
+<meta property="og:title" content="" />
+<meta property="og:description" content="性能分析(3)——内存 top命令可以查看系统内存信息，如需详细信息可使用以下命令。其中vmstat可以很好的展示内存和IO信息。
+1. free——系统内存使用情况 free命令可以显示当前系统未使用的和已使用的内存数目，还可以显示被内核使用的内存缓冲区。
+1 2 3 4 5  $ free total used free shared buffers cached Mem: 2079008 520952 1558056 152 68232 396756 -/&#43; buffers/cache: 55964 2023044 Swap: 524284 0 524284    shared：当前已经废弃指标。 buffers：用于块设备I/O的缓冲区高速缓存的大小。 cached：文件系统使用的页缓存大小。 -/&#43; buffers/cache：used=第一部分 used – buffers – cached，代表实际被程序占用的内存；free=第一部分 free &#43; buffers &#43; cached，代表还能被挪用的内存。 swap：交换分区信息。  注意，缓冲区buffer是用来缓冲块设备的，它只记录文件系统的元数据以及跟踪瞬时页面，而缓存cached用来给文件作缓冲。换句话说，缓冲区主要用来存放目录内容，文件属性及权限等，而缓存直接用来记忆打开用户使用过的文件和程序，
+2. vmstat——统计虚拟内存信息 1 2 3 4 5 6 7 8  $ vmstat 1 procs -----------memory---------- ---swap-- -----io---- --system-- -----cpu----- r b swpd free buff cache si so bi bo in cs us sy id wa st 0 0 0 1560036 67508 395308 0 0 0 0 13 11 0 0 100 0 0 0 0 0 1560036 67508 395308 0 0 0 0 50 37 0 0 100 0 0 0 0 0 1560068 67508 395308 0 0 0 0 35 47 0 0 100 0 0 0 0 0 1560068 67508 395308 0 0 0 0 34 43 0 0 100 0 0 0 0 0 1560068 67508 395308 0 0 0 0 33 38 0 0 100 0 0   Procs（进程）" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://yixy.github.io/youzhilane/post/02%E7%B3%BB%E7%BB%9F%E7%BC%96%E7%A8%8B/%E7%B3%BB%E7%BB%9F%E6%80%A7%E8%83%BD%E5%88%86%E6%9E%90/%E6%80%A7%E8%83%BD%E5%88%86%E6%9E%90xx-%E5%86%85%E5%AD%98/" />
+
+<meta itemprop="name" content="">
+<meta itemprop="description" content="性能分析(3)——内存 top命令可以查看系统内存信息，如需详细信息可使用以下命令。其中vmstat可以很好的展示内存和IO信息。
+1. free——系统内存使用情况 free命令可以显示当前系统未使用的和已使用的内存数目，还可以显示被内核使用的内存缓冲区。
+1 2 3 4 5  $ free total used free shared buffers cached Mem: 2079008 520952 1558056 152 68232 396756 -/&#43; buffers/cache: 55964 2023044 Swap: 524284 0 524284    shared：当前已经废弃指标。 buffers：用于块设备I/O的缓冲区高速缓存的大小。 cached：文件系统使用的页缓存大小。 -/&#43; buffers/cache：used=第一部分 used – buffers – cached，代表实际被程序占用的内存；free=第一部分 free &#43; buffers &#43; cached，代表还能被挪用的内存。 swap：交换分区信息。  注意，缓冲区buffer是用来缓冲块设备的，它只记录文件系统的元数据以及跟踪瞬时页面，而缓存cached用来给文件作缓冲。换句话说，缓冲区主要用来存放目录内容，文件属性及权限等，而缓存直接用来记忆打开用户使用过的文件和程序，
+2. vmstat——统计虚拟内存信息 1 2 3 4 5 6 7 8  $ vmstat 1 procs -----------memory---------- ---swap-- -----io---- --system-- -----cpu----- r b swpd free buff cache si so bi bo in cs us sy id wa st 0 0 0 1560036 67508 395308 0 0 0 0 13 11 0 0 100 0 0 0 0 0 1560036 67508 395308 0 0 0 0 50 37 0 0 100 0 0 0 0 0 1560068 67508 395308 0 0 0 0 35 47 0 0 100 0 0 0 0 0 1560068 67508 395308 0 0 0 0 34 43 0 0 100 0 0 0 0 0 1560068 67508 395308 0 0 0 0 33 38 0 0 100 0 0   Procs（进程）">
+
+
+
+<meta itemprop="wordCount" content="224">
+
+
+
+<meta itemprop="keywords" content="" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content=""/>
+<meta name="twitter:description" content="性能分析(3)——内存 top命令可以查看系统内存信息，如需详细信息可使用以下命令。其中vmstat可以很好的展示内存和IO信息。
+1. free——系统内存使用情况 free命令可以显示当前系统未使用的和已使用的内存数目，还可以显示被内核使用的内存缓冲区。
+1 2 3 4 5  $ free total used free shared buffers cached Mem: 2079008 520952 1558056 152 68232 396756 -/&#43; buffers/cache: 55964 2023044 Swap: 524284 0 524284    shared：当前已经废弃指标。 buffers：用于块设备I/O的缓冲区高速缓存的大小。 cached：文件系统使用的页缓存大小。 -/&#43; buffers/cache：used=第一部分 used – buffers – cached，代表实际被程序占用的内存；free=第一部分 free &#43; buffers &#43; cached，代表还能被挪用的内存。 swap：交换分区信息。  注意，缓冲区buffer是用来缓冲块设备的，它只记录文件系统的元数据以及跟踪瞬时页面，而缓存cached用来给文件作缓冲。换句话说，缓冲区主要用来存放目录内容，文件属性及权限等，而缓存直接用来记忆打开用户使用过的文件和程序，
+2. vmstat——统计虚拟内存信息 1 2 3 4 5 6 7 8  $ vmstat 1 procs -----------memory---------- ---swap-- -----io---- --system-- -----cpu----- r b swpd free buff cache si so bi bo in cs us sy id wa st 0 0 0 1560036 67508 395308 0 0 0 0 13 11 0 0 100 0 0 0 0 0 1560036 67508 395308 0 0 0 0 50 37 0 0 100 0 0 0 0 0 1560068 67508 395308 0 0 0 0 35 47 0 0 100 0 0 0 0 0 1560068 67508 395308 0 0 0 0 34 43 0 0 100 0 0 0 0 0 1560068 67508 395308 0 0 0 0 33 38 0 0 100 0 0   Procs（进程）"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+
+
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/youzhilane/" class="logo">友知弄</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <li class="mobile-menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="https://yixy.github.io/youzhilane/">主页</a>
+          
+        
+      </li><li class="mobile-menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="https://yixy.github.io/youzhilane/categories/">分类</a>
+          
+        
+      </li><li class="mobile-menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="https://yixy.github.io/youzhilane/booklist/">书单</a>
+          
+        
+      </li><li class="mobile-menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="https://yixy.github.io/youzhilane/about/">关于友知弄</a>
+          
+        
+      </li><li class="mobile-menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="https://github.com/yixy" rel="noopener" target="_blank">
+              GitHub
+              
+              <i class="iconfont">
+                <svg class="icon" viewBox="0 0 1024 1024" version="1.1"
+  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+  width="18" height="18">
+  <path d="M623.36 272.96 473.216 423.04C467.2 429.056 467.072 438.656 472.896 444.416c0 0-6.72-6.656 1.6 1.6C496.064 467.648 528.64 500.224 528.64 500.224 534.464 506.048 544 505.856 550.016 499.904l150.08-150.144 67.328 66.432c9.024 8.96 27.456 4.544 30.4-8.96 19.968-92.608 46.656-227.52 46.656-227.52 6.848-34.496-16.192-56.704-49.92-49.92 0 0-134.656 26.816-227.328 46.784C560.32 178.048 556.352 182.272 554.752 187.136c-3.2 6.208-3.008 14.208 3.776 20.992L623.36 272.96z"></path>
+  <path d="M841.152 457.152c-30.528 0-54.784 24.512-54.784 54.656l0 274.752L237.696 786.56 237.696 237.696l206.016 0c6.656 0 10.752 0 13.248 0C487.68 237.696 512 213.184 512 182.848 512 152.32 487.36 128 456.96 128L183.04 128C153.216 128 128 152.576 128 182.848c0 3.136 0.256 6.272 0.768 9.28C128.256 195.136 128 198.272 128 201.408l0 639.488c0 0.064 0 0.192 0 0.256 0 0.128 0 0.192 0 0.32 0 30.528 24.512 54.784 54.784 54.784l646.976 0c6.592 0 9.728 0 11.712 0 28.736 0 52.928-22.976 54.464-51.968C896 843.264 896 842.304 896 841.344l0-20.352L896 561.408 896 512.128C896 481.792 871.424 457.152 841.152 457.152z"></path>
+</svg>
+
+              </i>
+            </a>
+          
+        
+      </li><li class="mobile-menu-item">
+        
+          
+          <div class="mobile-menu-parent">
+            <span class="mobile-submenu-open"></span>
+            <a href="https://yixy.github.io/youzhilane/post/">
+              归档
+            </a>
+          </div>
+          <ul class="mobile-submenu-list">
+            
+              <li>
+                <a href="https://yixy.github.io/youzhilane/post/">日期</a>
+              </li>
+            
+              <li>
+                <a href="https://yixy.github.io/youzhilane/tags/">标签</a>
+              </li>
+            
+          </ul>
+        
+      </li>
+    
+
+    
+  </ul>
+</nav>
+
+
+  
+    
+
+
+
+
+
+
+  <link rel="stylesheet" href="/youzhilane/lib/photoswipe/photoswipe.min.css" />
+  <link rel="stylesheet" href="/youzhilane/lib/photoswipe/default-skin/default-skin.min.css" />
+
+
+
+
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+<div class="pswp__bg"></div>
+
+<div class="pswp__scroll-wrap">
+    
+    <div class="pswp__container">
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+    </div>
+    
+    <div class="pswp__ui pswp__ui--hidden">
+    <div class="pswp__top-bar">
+      
+      <div class="pswp__counter"></div>
+      <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+      <button class="pswp__button pswp__button--share" title="Share"></button>
+      <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+      <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+      
+      
+      <div class="pswp__preloader">
+        <div class="pswp__preloader__icn">
+          <div class="pswp__preloader__cut">
+            <div class="pswp__preloader__donut"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+      <div class="pswp__share-tooltip"></div>
+    </div>
+    <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+    </button>
+    <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+    </button>
+    <div class="pswp__caption">
+      <div class="pswp__caption__center"></div>
+    </div>
+    </div>
+    </div>
+</div>
+
+  
+
+  
+
+  
+
+  <header id="header" class="header container">
+    <div class="logo-wrapper">
+  <a href="/youzhilane/" class="logo">
+    
+      友知弄
+    
+  </a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    
+    
+        <li class="menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="https://yixy.github.io/youzhilane/">主页</a>
+          
+
+        
+
+      </li>
+    
+        <li class="menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="https://yixy.github.io/youzhilane/categories/">分类</a>
+          
+
+        
+
+      </li>
+    
+        <li class="menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="https://yixy.github.io/youzhilane/booklist/">书单</a>
+          
+
+        
+
+      </li>
+    
+        <li class="menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="https://yixy.github.io/youzhilane/about/">关于友知弄</a>
+          
+
+        
+
+      </li>
+    
+        <li class="menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="https://github.com/yixy" rel="noopener" target="_blank">
+              GitHub
+              
+              <i class="iconfont">
+                <svg class="icon" viewBox="0 0 1024 1024" version="1.1"
+  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+  width="18" height="18">
+  <path d="M623.36 272.96 473.216 423.04C467.2 429.056 467.072 438.656 472.896 444.416c0 0-6.72-6.656 1.6 1.6C496.064 467.648 528.64 500.224 528.64 500.224 534.464 506.048 544 505.856 550.016 499.904l150.08-150.144 67.328 66.432c9.024 8.96 27.456 4.544 30.4-8.96 19.968-92.608 46.656-227.52 46.656-227.52 6.848-34.496-16.192-56.704-49.92-49.92 0 0-134.656 26.816-227.328 46.784C560.32 178.048 556.352 182.272 554.752 187.136c-3.2 6.208-3.008 14.208 3.776 20.992L623.36 272.96z"></path>
+  <path d="M841.152 457.152c-30.528 0-54.784 24.512-54.784 54.656l0 274.752L237.696 786.56 237.696 237.696l206.016 0c6.656 0 10.752 0 13.248 0C487.68 237.696 512 213.184 512 182.848 512 152.32 487.36 128 456.96 128L183.04 128C153.216 128 128 152.576 128 182.848c0 3.136 0.256 6.272 0.768 9.28C128.256 195.136 128 198.272 128 201.408l0 639.488c0 0.064 0 0.192 0 0.256 0 0.128 0 0.192 0 0.32 0 30.528 24.512 54.784 54.784 54.784l646.976 0c6.592 0 9.728 0 11.712 0 28.736 0 52.928-22.976 54.464-51.968C896 843.264 896 842.304 896 841.344l0-20.352L896 561.408 896 512.128C896 481.792 871.424 457.152 841.152 457.152z"></path>
+</svg>
+
+              </i>
+            </a>
+          
+
+        
+
+      </li>
+    
+        <li class="menu-item">
+        
+          
+          <a class="menu-item-link menu-parent" href="https://yixy.github.io/youzhilane/post/">归档</a>
+          <ul class="submenu">
+            
+              <li>
+                <a href="https://yixy.github.io/youzhilane/post/">日期</a>
+              </li>
+            
+              <li>
+                <a href="https://yixy.github.io/youzhilane/tags/">标签</a>
+              </li>
+            
+          </ul>
+
+        
+
+      </li>
+    
+
+    
+    
+
+    
+  </ul>
+</nav>
+
+  </header>
+
+  <div id="mobile-panel">
+    <main id="main" class="main bg-llight">
+      <div class="content-wrapper">
+        <div id="content" class="content container">
+          <article class="post bg-white">
+    
+    <header class="post-header">
+      <h1 class="post-title"></h1>
+      
+      <div class="post-meta">
+        <time datetime="0001-01-01" class="post-time">
+          0001-01-01
+        </time>
+        
+        <span class="more-meta"> 约 224 字 </span>
+          <span class="more-meta"> 预计阅读 2 分钟 </span>
+
+        
+        
+
+        
+        
+      </div>
+    </header>
+
+    
+    
+<div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content">
+    <nav id="TableOfContents">
+<ul>
+<li><a href="#性能分析-3-内存">性能分析(3)——内存</a>
+<ul>
+<li><a href="#1-free-系统内存使用情况">1. free——系统内存使用情况</a></li>
+<li><a href="#2-vmstat-统计虚拟内存信息">2. vmstat——统计虚拟内存信息</a></li>
+<li><a href="#相关链接">相关链接</a></li>
+</ul></li>
+</ul>
+</nav>
+  </div>
+</div>
+
+    
+    <div class="post-content">
+      
+
+<h1 id="性能分析-3-内存">性能分析(3)——内存</h1>
+
+<p>top命令可以查看系统内存信息，如需详细信息可使用以下命令。其中vmstat可以很好的展示内存和IO信息。</p>
+
+<h2 id="1-free-系统内存使用情况">1. free——系统内存使用情况</h2>
+
+<p>free命令可以显示当前系统未使用的和已使用的内存数目，还可以显示被内核使用的内存缓冲区。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">$ free
+             total       used       free     shared    buffers     cached
+Mem:       2079008     520952    1558056        152      68232     396756
+-/+ buffers/cache:      55964    2023044
+Swap:       524284          0     524284</pre></td></tr></table>
+</div>
+</div>
+<ul>
+<li>shared：当前已经废弃指标。</li>
+<li>buffers：用于块设备I/O的缓冲区高速缓存的大小。</li>
+<li>cached：文件系统使用的页缓存大小。</li>
+<li>-/+ buffers/cache：used=第一部分 used – buffers – cached，代表实际被程序占用的内存；free=第一部分 free + buffers + cached，代表还能被挪用的内存。</li>
+<li>swap：交换分区信息。</li>
+</ul>
+
+<p>注意，缓冲区buffer是用来缓冲块设备的，它只记录文件系统的元数据以及跟踪瞬时页面，而缓存cached用来给文件作缓冲。换句话说，缓冲区主要用来存放目录内容，文件属性及权限等，而缓存直接用来记忆打开用户使用过的文件和程序，</p>
+
+<h2 id="2-vmstat-统计虚拟内存信息">2. vmstat——统计虚拟内存信息</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">$ vmstat 1
+procs -----------memory---------- ---swap-- -----io---- --system-- -----cpu-----
+ r  b   swpd   free   buff  cache   si   so    bi    bo   in   cs us sy id wa st
+ 0  0      0 1560036  67508 395308    0    0     0     0   13   11  0  0 100  0  0
+ 0  0      0 1560036  67508 395308    0    0     0     0   50   37  0  0 100  0  0
+ 0  0      0 1560068  67508 395308    0    0     0     0   35   47  0  0 100  0  0
+ 0  0      0 1560068  67508 395308    0    0     0     0   34   43  0  0 100  0  0
+ 0  0      0 1560068  67508 395308    0    0     0     0   33   38  0  0 100  0  0</pre></td></tr></table>
+</div>
+</div>
+<p><strong><em>Procs（进程）</em></strong></p>
+
+<ul>
+<li>r：CPU负载（当前正在被CPU执行和等待CPU执行的进程数目总和）。</li>
+<li>b: 等待IO的进程数量。</li>
+</ul>
+
+<p><strong><em>Memory（内存）</em></strong></p>
+
+<ul>
+<li>swpd: 使用交换区大小，如果swpd的值不为0，但是SI，SO的值长期为0，这种情况不会影响系统性能。（SWAP就是LINUX下的虚拟内存分区，它的作用是在物理内存使用完之后,将磁盘空间(也就是SWAP分区)虚拟成内存来使用）</li>
+<li>free: 空闲物理内存大小，单位KB。</li>
+<li>buff: 用于块设备I/O的缓冲区高速缓存的大小。</li>
+<li>cache: 文件系统使用的页缓存大小。如果cache的值大的时候，说明cache处的文件数多，如果频繁访问到的文件都能被cache处，那么磁盘的读IO bi会非常小。</li>
+</ul>
+
+<p><strong><em>Swap</em></strong></p>
+
+<ul>
+<li>si: 每秒从交换区写到内存的大小，由磁盘调入内存。</li>
+<li>so: 每秒写入交换区的内存大小，由内存调入磁盘。</li>
+</ul>
+
+<p>注意：内存够用的时候，这2个值都是0，如果这2个值长期大于0时，系统性能会受到影响，磁盘IO和CPU资源都会被消耗。空闲内存（free）很少的或接近于0时，并不代表内存不够用了，此时需要结合si和so，如果free很少，但是si和so也很少（大多时候是0），那么不用担心，系统性能这时不会受到影响的。</p>
+
+<p><strong><em>IO</em></strong></p>
+
+<ul>
+<li>bi: 每秒读取的块数</li>
+<li>bo: 每秒写入的块数</li>
+</ul>
+
+<p>注意：随机磁盘读写的时候，这2个值越大（如超出1024k)，能看到CPU在IO等待的值也会越大。</p>
+
+<p><strong><em>system（系统）</em></strong></p>
+
+<ul>
+<li>in: 每秒中断数，包括时钟中断。</li>
+<li>cs: 每秒上下文切换数。</li>
+</ul>
+
+<p>注意：上面2个值越大，会看到由内核消耗的CPU时间会越大。</p>
+
+<p><strong><em>CPU（以百分比表示）</em></strong></p>
+
+<p>us, sy, id, wa, st：CPU时间的不同组成部分，是所有CPU的平均数。分别表示用户态时间、系统态时间（内核）、空闲、等待I/O以及窃取时间（stolen time，虚拟化环境下，CPU在其他租户上的开销）。</p>
+
+<ul>
+<li>us: 用户进程执行时间百分比(user time)。us的值比较高时，说明用户进程消耗的CPU时间多，但是如果长期超50%的使用，那么我们就该考虑优化程序算法或者进行加速。</li>
+<li>sy: 内核系统进程执行时间百分比(system time)。sy的值高时，说明系统内核消耗的CPU资源多，这并不是良性表现，我们应该检查原因。</li>
+<li>wa: IO等待时间百分比。wa的值高时，说明IO等待比较严重，这可能由于磁盘大量作随机访问造成，也有可能磁盘出现瓶颈（块操作）。</li>
+<li>id: 空闲时间百分比</li>
+</ul>
+
+<p>将用户态时间和系统态时间相加，可以判断CPU是否忙碌。如果一直有等待I/O，表明存在磁盘瓶颈。因为任务阻塞等待磁盘I/O，此时CPU是空闲的。可以将等待I/O看作另一种形式的CPU空闲。</p>
+
+<h2 id="相关链接">相关链接</h2>
+
+<p>《性能之巅》，Brandan Gregg，第7章，内存</p>
+
+    </div>
+
+    
+    
+<div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">yixy</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+      0001-01-01
+      
+    </span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">许可协议</span>
+    <span class="item-content"><a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank">CC BY-NC-ND 4.0</a></span>
+  </p>
+</div>
+
+
+    
+    
+<div class="post-reward">
+  <input type="checkbox" name="reward" id="reward" hidden />
+  <label class="reward-button" for="reward">赞赏支持</label>
+  <div class="qr-code">
+    
+    
+      <label class="qr-code-image" for="reward">
+        <img class="image" src="/youzhilane/img/about/wechat.jpg">
+        <span>微信打赏</span>
+      </label>
+    
+  </div>
+</div>
+
+    <footer class="post-footer">
+      
+
+      
+      <nav class="post-nav">
+        
+          <a class="prev" href="/youzhilane/post/02%E7%B3%BB%E7%BB%9F%E7%BC%96%E7%A8%8B/%E7%B3%BB%E7%BB%9F%E6%80%A7%E8%83%BD%E5%88%86%E6%9E%90/%E6%80%A7%E8%83%BD%E5%88%86%E6%9E%90xx-use%E6%80%A7%E8%83%BD%E5%88%86%E6%9E%90%E6%96%B9%E6%B3%95/">
+            
+            <i class="iconfont">
+              <svg  class="icon" viewBox="0 0 1024 1024" version="1.1"
+  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+  width="18" height="18">
+  <path d="M691.908486 949.511495l75.369571-89.491197c10.963703-12.998035 10.285251-32.864502-1.499144-44.378743L479.499795 515.267417 757.434875 204.940602c11.338233-12.190647 11.035334-32.285311-0.638543-44.850487l-80.46666-86.564541c-11.680017-12.583596-30.356378-12.893658-41.662889-0.716314L257.233596 494.235404c-11.332093 12.183484-11.041474 32.266891 0.657986 44.844348l80.46666 86.564541c1.772366 1.910513 3.706415 3.533476 5.750981 4.877077l306.620399 321.703933C662.505829 963.726242 680.945807 962.528973 691.908486 949.511495z"></path>
+</svg>
+
+            </i>
+            <span class="prev-text nav-default"></span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        
+          <a class="next" href="/youzhilane/post/02%E7%B3%BB%E7%BB%9F%E7%BC%96%E7%A8%8B/%E7%B3%BB%E7%BB%9F%E6%80%A7%E8%83%BD%E5%88%86%E6%9E%90/%E6%80%A7%E8%83%BD%E5%88%86%E6%9E%90xx-%E7%B3%BB%E7%BB%9F%E5%9F%BA%E6%9C%AC%E4%BF%A1%E6%81%AF/">
+            <span class="next-text nav-default"></span>
+            <span class="prev-text nav-mobile">下一篇</span>
+            
+            <i class="iconfont">
+              <svg class="icon" viewBox="0 0 1024 1024" version="1.1"
+  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+  width="18" height="18">
+  <path d="M332.091514 74.487481l-75.369571 89.491197c-10.963703 12.998035-10.285251 32.864502 1.499144 44.378743l286.278095 300.375162L266.565125 819.058374c-11.338233 12.190647-11.035334 32.285311 0.638543 44.850487l80.46666 86.564541c11.680017 12.583596 30.356378 12.893658 41.662889 0.716314l377.434212-421.426145c11.332093-12.183484 11.041474-32.266891-0.657986-44.844348l-80.46666-86.564541c-1.772366-1.910513-3.706415-3.533476-5.750981-4.877077L373.270379 71.774697C361.493148 60.273758 343.054193 61.470003 332.091514 74.487481z"></path>
+</svg>
+
+            </i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+
+  
+  
+  
+  
+
+  
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+    
+
+  
+
+        </div>
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="icon-links">
+  
+  
+    <a href="mailto:youzhilane01@gmail.com" rel="me noopener" class="iconfont"
+      title="email" >
+      <svg class="icon" viewBox="0 0 1451 1024" version="1.1"
+  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+  width="36" height="36">
+  <path d="M664.781909 681.472759 0 97.881301C0 3.997201 71.046997 0 71.046997 0L474.477909 0 961.649408 0 1361.641813 0C1361.641813 0 1432.688811 3.997201 1432.688811 97.881301L771.345323 681.472759C771.345323 681.472759 764.482731 685.154773 753.594283 688.65053L753.594283 688.664858C741.602731 693.493018 729.424896 695.068979 718.077952 694.839748 706.731093 695.068979 694.553173 693.493018 682.561621 688.664858L682.561621 688.65053C671.644501 685.140446 664.781909 681.472759 664.781909 681.472759L664.781909 681.472759ZM718.063616 811.603883C693.779541 811.016482 658.879232 802.205449 619.10784 767.734955 542.989056 701.759633 0 212.052267 0 212.052267L0 942.809523C0 942.809523 0 1024 83.726336 1024L682.532949 1024 753.579947 1024 1348.948139 1024C1432.688811 1024 1432.688811 942.809523 1432.688811 942.809523L1432.688811 212.052267C1432.688811 212.052267 893.138176 701.759633 817.019477 767.734955 777.248 802.205449 742.347691 811.03081 718.063616 811.603883L718.063616 811.603883Z"></path>
+</svg>
+
+    </a>
+
+
+<a href="https://yixy.github.io/youzhilane/index.xml" rel="noopener alternate" type="application/rss&#43;xml"
+    class="iconfont" title="rss" target="_blank">
+    <svg class="icon" viewBox="0 0 1024 1024" version="1.1"
+  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+  width="30" height="30">
+  <path d="M819.157333 1024C819.157333 574.592 449.408 204.8 0 204.8V0c561.706667 0 1024 462.293333 1024 1024h-204.842667zM140.416 743.04a140.8 140.8 0 0 1 140.501333 140.586667A140.928 140.928 0 0 1 140.074667 1024C62.72 1024 0 961.109333 0 883.626667s62.933333-140.544 140.416-140.586667zM678.784 1024h-199.04c0-263.210667-216.533333-479.786667-479.744-479.786667V345.173333c372.352 0 678.784 306.517333 678.784 678.826667z"></path>
+</svg>
+
+  </a>
+   
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - <a class="theme-link" href="https://github.com/xianmin/hugo-theme-jane">Jane</a>
+  </span>
+
+  <span class="copyright-year">
+    &copy;
+    2019
+    <span class="heart">
+      
+      <i class="iconfont">
+        <svg class="icon" viewBox="0 0 1025 1024" version="1.1"
+  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+  width="14" height="14">
+  <path d="M1000.1 247.9c-15.5-37.3-37.6-70.6-65.7-98.9-54.4-54.8-125.8-85-201-85-85.7 0-166 39-221.4 107.4C456.6 103 376.3 64 290.6 64c-75.1 0-146.5 30.4-201.1 85.6-28.2 28.5-50.4 61.9-65.8 99.3-16 38.8-24 79.9-23.6 122.2 0.7 91.7 40.1 177.2 108.1 234.8 3.1 2.6 6 5.1 8.9 7.8 14.9 13.4 58 52.8 112.6 102.7 93.5 85.5 209.9 191.9 257.5 234.2 7 6.1 15.8 9.5 24.9 9.5 9.2 0 18.1-3.4 24.9-9.5 34.5-30.7 105.8-95.9 181.4-165 74.2-67.8 150.9-138 195.8-178.2 69.5-57.9 109.6-144.4 109.9-237.3 0.1-42.5-8-83.6-24-122.2z"
+   fill="#8a8a8a"></path>
+</svg>
+
+      </i>
+    </span><span class="author">
+        yixy
+        
+      </span></span>
+
+  
+  
+
+  
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont">
+        
+        <svg class="icon" viewBox="0 0 1024 1024" version="1.1"
+  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+  width="35" height="35">
+  <path d="M510.866688 227.694839 95.449397 629.218702l235.761562 0-2.057869 328.796468 362.40389 0L691.55698 628.188232l241.942331-3.089361L510.866688 227.694839zM63.840492 63.962777l894.052392 0 0 131.813095L63.840492 195.775872 63.840492 63.962777 63.840492 63.962777zM63.840492 63.962777"></path>
+</svg>
+
+      </i>
+    </div>
+  </div>
+  
+<script type="text/javascript" src="/youzhilane/lib/jquery/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="/youzhilane/lib/slideout/slideout-1.0.1.min.js"></script>
+
+
+
+
+<script type="text/javascript" src="/youzhilane/js/main.638251f4230630f0335d8c6748e53a96f94b72670920b60c09a56fdc8bece214.js" integrity="sha256-Y4JR9CMGMPAzXYxnSOU6lvlLcmcJILYMCaVv3Ivs4hQ=" crossorigin="anonymous"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    <script type="text/javascript" src="/youzhilane/js/load-photoswipe.js"></script>
+    <script type="text/javascript" src="/youzhilane/lib/photoswipe/photoswipe.min.js"></script>
+    <script type="text/javascript" src="/youzhilane/lib/photoswipe/photoswipe-ui-default.min.js"></script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

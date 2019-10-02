@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>database on 友知弄</title>
+    <link>https://yixy.github.io/youzhilane/tags/database/</link>
+    <description>Recent content in database on 友知弄</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Sun, 22 Sep 2019 21:41:52 +0800</lastBuildDate>
+    
+	<atom:link href="https://yixy.github.io/youzhilane/tags/database/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>数据库系统(01)概念-数据库系统概念</title>
+      <link>https://yixy.github.io/youzhilane/post/04%E6%95%B0%E6%8D%AE%E5%BA%93/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E6%A6%82%E5%BF%B5/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F01%E6%A6%82%E5%BF%B5-%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E6%A6%82%E5%BF%B5/</link>
+      <pubDate>Sun, 22 Sep 2019 21:41:52 +0800</pubDate>
+      
+      <guid>https://yixy.github.io/youzhilane/post/04%E6%95%B0%E6%8D%AE%E5%BA%93/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E6%A6%82%E5%BF%B5/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F01%E6%A6%82%E5%BF%B5-%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E6%A6%82%E5%BF%B5/</guid>
+      <description>0. 数据库系统的产生 人工管理-&amp;gt;文件系统-&amp;gt;数据库系统 1. 基本概念 从下往上看这张图。 图中的下半部分实际上就描述了一个数据库系统。典型</description>
+    </item>
+    
+    <item>
+      <title>数据库系统(02)设计-数据模式-数据模型</title>
+      <link>https://yixy.github.io/youzhilane/post/04%E6%95%B0%E6%8D%AE%E5%BA%93/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E6%A6%82%E5%BF%B5/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F02%E8%AE%BE%E8%AE%A1-%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%BC%8F-%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B/</link>
+      <pubDate>Sun, 22 Sep 2019 21:41:52 +0800</pubDate>
+      
+      <guid>https://yixy.github.io/youzhilane/post/04%E6%95%B0%E6%8D%AE%E5%BA%93/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E6%A6%82%E5%BF%B5/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F02%E8%AE%BE%E8%AE%A1-%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%BC%8F-%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B/</guid>
+      <description>1. 数据-数据模式-数据模型 数据（data）/视图（view）：某一表现形式下表现出来的数据库中的数据。 数据模式（schema）：数据模式是对</description>
+    </item>
+    
+    <item>
+      <title>数据库系统(03)设计-数据库发展史</title>
+      <link>https://yixy.github.io/youzhilane/post/04%E6%95%B0%E6%8D%AE%E5%BA%93/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E6%A6%82%E5%BF%B5/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F03%E8%AE%BE%E8%AE%A1-%E6%95%B0%E6%8D%AE%E5%BA%93%E5%8F%91%E5%B1%95%E5%8F%B2/</link>
+      <pubDate>Sun, 22 Sep 2019 21:41:52 +0800</pubDate>
+      
+      <guid>https://yixy.github.io/youzhilane/post/04%E6%95%B0%E6%8D%AE%E5%BA%93/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E6%A6%82%E5%BF%B5/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F03%E8%AE%BE%E8%AE%A1-%E6%95%B0%E6%8D%AE%E5%BA%93%E5%8F%91%E5%B1%95%E5%8F%B2/</guid>
+      <description>数据库发展史 待补充Nosql、分布式数据库的内容。 相关链接 《数据库系统》，哈工大，战德臣，幕客网上有相关视频，分为上中下 https://www.icourse163.org/u/981194?userId=1507001&amp;amp;_trace_c_p_k2_=de1921fe92e844fd9a1fd183586497a2</description>
+    </item>
+    
+    <item>
+      <title>数据库系统(04)设计-什么是关系模型</title>
+      <link>https://yixy.github.io/youzhilane/post/04%E6%95%B0%E6%8D%AE%E5%BA%93/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E6%A6%82%E5%BF%B5/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F04%E8%AE%BE%E8%AE%A1-%E4%BB%80%E4%B9%88%E6%98%AF%E5%85%B3%E7%B3%BB%E6%A8%A1%E5%9E%8B/</link>
+      <pubDate>Sun, 22 Sep 2019 21:41:52 +0800</pubDate>
+      
+      <guid>https://yixy.github.io/youzhilane/post/04%E6%95%B0%E6%8D%AE%E5%BA%93/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E6%A6%82%E5%BF%B5/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F04%E8%AE%BE%E8%AE%A1-%E4%BB%80%E4%B9%88%E6%98%AF%E5%85%B3%E7%B3%BB%E6%A8%A1%E5%9E%8B/</guid>
+      <description>0. 为什么研究关系模型 标准的数据库语言（SQL）是建立在关系模型基础之上的，数据库领域的众多理论也是建立在关系模型基础之上的。 1. 什么是关系模型</description>
+    </item>
+    
+    <item>
+      <title>数据库系统(05)设计-关系模型-数据结构</title>
+      <link>https://yixy.github.io/youzhilane/post/04%E6%95%B0%E6%8D%AE%E5%BA%93/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E6%A6%82%E5%BF%B5/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F05%E8%AE%BE%E8%AE%A1-%E5%85%B3%E7%B3%BB%E6%A8%A1%E5%9E%8B-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/</link>
+      <pubDate>Sun, 22 Sep 2019 21:41:52 +0800</pubDate>
+      
+      <guid>https://yixy.github.io/youzhilane/post/04%E6%95%B0%E6%8D%AE%E5%BA%93/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E6%A6%82%E5%BF%B5/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F05%E8%AE%BE%E8%AE%A1-%E5%85%B3%E7%B3%BB%E6%A8%A1%E5%9E%8B-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/</guid>
+      <description>1. 数据的基本结构 属性与域：每个属性（对应表中的列）有一组允许的值，称为该属性的域。 关系：一系列域上的笛卡尔积的子集。关系是笛卡尔积中每个元组</description>
+    </item>
+    
+    <item>
+      <title>数据库系统(06)设计-关系模型-关系运算</title>
+      <link>https://yixy.github.io/youzhilane/post/04%E6%95%B0%E6%8D%AE%E5%BA%93/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E6%A6%82%E5%BF%B5/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F06%E8%AE%BE%E8%AE%A1-%E5%85%B3%E7%B3%BB%E6%A8%A1%E5%9E%8B-%E5%85%B3%E7%B3%BB%E8%BF%90%E7%AE%97/</link>
+      <pubDate>Sun, 22 Sep 2019 21:41:52 +0800</pubDate>
+      
+      <guid>https://yixy.github.io/youzhilane/post/04%E6%95%B0%E6%8D%AE%E5%BA%93/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E6%A6%82%E5%BF%B5/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F06%E8%AE%BE%E8%AE%A1-%E5%85%B3%E7%B3%BB%E6%A8%A1%E5%9E%8B-%E5%85%B3%E7%B3%BB%E8%BF%90%E7%AE%97/</guid>
+      <description>1. 关系运算的三种形式 2. 关系代数 关系运算操作的对象及结果都是集合。 关系代数的基本运算： 选择：选出满足给定谓词的元组。（一元行操作） 投影：返回作</description>
+    </item>
+    
+    <item>
+      <title>数据库系统(07)设计-关系模型-完整性约束</title>
+      <link>https://yixy.github.io/youzhilane/post/04%E6%95%B0%E6%8D%AE%E5%BA%93/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E6%A6%82%E5%BF%B5/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F07%E8%AE%BE%E8%AE%A1-%E5%85%B3%E7%B3%BB%E6%A8%A1%E5%9E%8B-%E5%AE%8C%E6%95%B4%E6%80%A7%E7%BA%A6%E6%9D%9F/</link>
+      <pubDate>Sun, 22 Sep 2019 21:41:52 +0800</pubDate>
+      
+      <guid>https://yixy.github.io/youzhilane/post/04%E6%95%B0%E6%8D%AE%E5%BA%93/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E6%A6%82%E5%BF%B5/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F07%E8%AE%BE%E8%AE%A1-%E5%85%B3%E7%B3%BB%E6%A8%A1%E5%9E%8B-%E5%AE%8C%E6%95%B4%E6%80%A7%E7%BA%A6%E6%9D%9F/</guid>
+      <description>关系模型——完整性约束 实体完整性：主键不能为空。空值是没有意义或不知道、不存在的值。 参照完整性：外码要么为空，要么为对应关联表的主码。 用户自</description>
+    </item>
+    
+    <item>
+      <title>数据库系统(08)设计-ER模型-基本概念</title>
+      <link>https://yixy.github.io/youzhilane/post/04%E6%95%B0%E6%8D%AE%E5%BA%93/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E6%A6%82%E5%BF%B5/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F08%E8%AE%BE%E8%AE%A1-er%E6%A8%A1%E5%9E%8B-%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5/</link>
+      <pubDate>Sun, 22 Sep 2019 21:41:52 +0800</pubDate>
+      
+      <guid>https://yixy.github.io/youzhilane/post/04%E6%95%B0%E6%8D%AE%E5%BA%93/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E6%A6%82%E5%BF%B5/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F08%E8%AE%BE%E8%AE%A1-er%E6%A8%A1%E5%9E%8B-%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5/</guid>
+      <description>ER模型 ER模型主要用于数据库概念设计（真实世界到信息世界的抽象），而其他数据模型则主要用于数据库逻辑设计（信息世界到计算机世界到抽象） 实体</description>
+    </item>
+    
+    <item>
+      <title>数据库系统(09)设计-ER模型-表达方法</title>
+      <link>https://yixy.github.io/youzhilane/post/04%E6%95%B0%E6%8D%AE%E5%BA%93/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E6%A6%82%E5%BF%B5/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F09%E8%AE%BE%E8%AE%A1-er%E6%A8%A1%E5%9E%8B-%E8%A1%A8%E8%BE%BE%E6%96%B9%E6%B3%95/</link>
+      <pubDate>Sun, 22 Sep 2019 21:41:52 +0800</pubDate>
+      
+      <guid>https://yixy.github.io/youzhilane/post/04%E6%95%B0%E6%8D%AE%E5%BA%93/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E6%A6%82%E5%BF%B5/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F09%E8%AE%BE%E8%AE%A1-er%E6%A8%A1%E5%9E%8B-%E8%A1%A8%E8%BE%BE%E6%96%B9%E6%B3%95/</guid>
+      <description>0. ER模型的表达方法 ER模型有三种图示化表达方法： Chen方法 Crow&amp;rsquo;s Foot 方法 IDEF1X方法（工程化方法） 1. Chen方法 2. Crow&amp;rsquo;s Foot 方法 3. IDEF1X方</description>
+    </item>
+    
+    <item>
+      <title>数据库系统(10)设计-数据库设计方法</title>
+      <link>https://yixy.github.io/youzhilane/post/04%E6%95%B0%E6%8D%AE%E5%BA%93/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E6%A6%82%E5%BF%B5/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F10%E8%AE%BE%E8%AE%A1-%E6%95%B0%E6%8D%AE%E5%BA%93%E8%AE%BE%E8%AE%A1%E6%96%B9%E6%B3%95/</link>
+      <pubDate>Sun, 22 Sep 2019 21:41:52 +0800</pubDate>
+      
+      <guid>https://yixy.github.io/youzhilane/post/04%E6%95%B0%E6%8D%AE%E5%BA%93/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E6%A6%82%E5%BF%B5/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F10%E8%AE%BE%E8%AE%A1-%E6%95%B0%E6%8D%AE%E5%BA%93%E8%AE%BE%E8%AE%A1%E6%96%B9%E6%B3%95/</guid>
+      <description>如何由ER图转换为关系模式 数据库设计注意的问题 数据库规范化设计 参考数据库系统（中）：建模与设计 第3、4、5讲 相关链接 《数据库系统》，哈工大，</description>
+    </item>
+    
+    <item>
+      <title>数据库系统(11)数据库语言-SQL</title>
+      <link>https://yixy.github.io/youzhilane/post/04%E6%95%B0%E6%8D%AE%E5%BA%93/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E6%A6%82%E5%BF%B5/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F11%E6%95%B0%E6%8D%AE%E5%BA%93%E8%AF%AD%E8%A8%80-sql/</link>
+      <pubDate>Sun, 22 Sep 2019 21:41:52 +0800</pubDate>
+      
+      <guid>https://yixy.github.io/youzhilane/post/04%E6%95%B0%E6%8D%AE%E5%BA%93/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E6%A6%82%E5%BF%B5/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F11%E6%95%B0%E6%8D%AE%E5%BA%93%E8%AF%AD%E8%A8%80-sql/</guid>
+      <description>1. 数据库语言 数据库语言包含DDL和DML。数据库定义和数据操纵语言并不是两种分离的语言，相反，它们简单地构成了单一的数据库语言的一部分，比如</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -6,10 +6,19 @@
     <description>Recent content in Categories on 友知弄</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Mon, 30 Sep 2019 22:16:33 +0800</lastBuildDate>
+    <lastBuildDate>Sun, 17 Nov 2019 00:22:22 +0800</lastBuildDate>
     
 	<atom:link href="https://yixy.github.io/youzhilane/categories/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>其他</title>
+      <link>https://yixy.github.io/youzhilane/categories/%E5%85%B6%E4%BB%96/</link>
+      <pubDate>Sun, 17 Nov 2019 00:22:22 +0800</pubDate>
+      
+      <guid>https://yixy.github.io/youzhilane/categories/%E5%85%B6%E4%BB%96/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>云计算</title>
@@ -39,11 +48,11 @@
     </item>
     
     <item>
-      <title>其他</title>
-      <link>https://yixy.github.io/youzhilane/categories/%E5%85%B6%E4%BB%96/</link>
-      <pubDate>Thu, 26 Sep 2019 12:50:12 +0800</pubDate>
+      <title>数据库</title>
+      <link>https://yixy.github.io/youzhilane/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/</link>
+      <pubDate>Sun, 22 Sep 2019 21:41:52 +0800</pubDate>
       
-      <guid>https://yixy.github.io/youzhilane/categories/%E5%85%B6%E4%BB%96/</guid>
+      <guid>https://yixy.github.io/youzhilane/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/</guid>
       <description></description>
     </item>
     

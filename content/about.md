@@ -3,7 +3,7 @@ title: "关于友知弄"
 date: 2019-09-22T21:38:52+08:00
 lastmod: 2019-09-22T21:41:52+08:00
 menu: "main"
-weight: 30
+weight: 31
 
 # you can close something for this content if you open it in config.toml.
 comment: true

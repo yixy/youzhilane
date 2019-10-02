@@ -6,10 +6,50 @@
     <description>Recent content on 友知弄</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Mon, 30 Sep 2019 22:16:33 +0800</lastBuildDate>
+    <lastBuildDate>Sun, 17 Nov 2019 00:22:22 +0800</lastBuildDate>
     
         <atom:link href="https://yixy.github.io/youzhilane/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>书单</title>
+      <link>https://yixy.github.io/youzhilane/booklist/</link>
+      <pubDate>Sun, 13 Oct 2019 22:04:12 +0800</pubDate>
+      
+      <guid>https://yixy.github.io/youzhilane/booklist/</guid>
+      
+        <description>
+
+&lt;style&gt;
+img{
+    width: 60%;
+    padding-left: 20%;
+}
+&lt;/style&gt;
+
+&lt;h2 id=&#34;性能之巅&#34;&gt;性能之巅&lt;/h2&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://yixy.github.io/youzhilane/youzhilane/img/booklist/性能之巅.jpeg&#34; alt=&#34;性能之巅&#34; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;数据库系统概念&#34;&gt;数据库系统概念&lt;/h2&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://yixy.github.io/youzhilane/youzhilane/img/booklist/数据库系统概念.jpeg&#34; alt=&#34;数据库系统概念&#34; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;视频课程&#34;&gt;视频课程&lt;/h2&gt;
+
+&lt;p&gt;青岛大学-王卓-数据结构&lt;/p&gt;
+
+&lt;p&gt;哈工大的数据库系统&lt;/p&gt;
+
+&lt;!--
+## 技术网站链接 ##
+
+http://openresty.org/cn/about.html
+http://kidlj.com/wiki/
+--&gt;
+</description>
+      
+    </item>
     
     <item>
       <title>关于友知弄</title>
@@ -26,11 +66,1055 @@
     </item>
     
     <item>
+      <title>Git(10)-删除已经提交的历史文件</title>
+      <link>https://yixy.github.io/youzhilane/post/11%E5%85%B6%E4%BB%96/git/git10-%E5%88%A0%E9%99%A4%E5%B7%B2%E7%BB%8F%E6%8F%90%E4%BA%A4%E7%9A%84%E5%8E%86%E5%8F%B2%E6%96%87%E4%BB%B6/</link>
+      <pubDate>Sun, 17 Nov 2019 00:22:22 +0800</pubDate>
+      
+      <guid>https://yixy.github.io/youzhilane/post/11%E5%85%B6%E4%BB%96/git/git10-%E5%88%A0%E9%99%A4%E5%B7%B2%E7%BB%8F%E6%8F%90%E4%BA%A4%E7%9A%84%E5%8E%86%E5%8F%B2%E6%96%87%E4%BB%B6/</guid>
+      
+        <description>
+
+&lt;h1 id=&#34;git-10-删除已经提交的历史文件&#34;&gt;Git(10)-删除已经提交的历史文件&lt;/h1&gt;
+
+&lt;p&gt;在使用Git时，即使使用&lt;code&gt;git rm&lt;/code&gt;删除了某个文件，但仓库中实际上还是保存了这个文件。如果想要删除已经提交了的文件，是一件很麻烦的事情，因为它存在于历史提交中。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;em&gt;针对这个问题，好的解决方案是认真对待每一次提交，避免类似的事情发生。&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;不推荐的解决方案是使用 filter-branch 命令重写从某个commit开始的所有 commit，将文件从 Git 历史中完全移除。但是实际上操作起来比较复杂，并且仓库有很多历史提交时执行效率很慢。同时，这样的操作实际上修改了仓库历史提交，如无必要，还是尽量不要这样做。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;6
+&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;git filter-branch --index-filter &amp;#39;git rm --cached --ignore-unmatch db.properties*&amp;#39; --prune-empty --tag-name-filter cat -- --all
+git push origin master --force 
+rm -rf .git/refs/original/  
+git reflog expire --expire=now --all  
+git gc --prune=now  
+git gc --aggressive --prune=now&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;注意，git专门有&lt;code&gt;git prune&lt;/code&gt;命令，用于删除冗余的git对象文件。Prune all unreachable objects（unreachable objects 指的是.git\objects中没有被使用的hash文件） from the object database 。&lt;/p&gt;
+</description>
+      
+    </item>
+    
+    <item>
+      <title>Git(09)-远程仓库</title>
+      <link>https://yixy.github.io/youzhilane/post/11%E5%85%B6%E4%BB%96/git/git09-%E8%BF%9C%E7%A8%8B%E4%BB%93%E5%BA%93/</link>
+      <pubDate>Sat, 16 Nov 2019 23:58:32 +0800</pubDate>
+      
+      <guid>https://yixy.github.io/youzhilane/post/11%E5%85%B6%E4%BB%96/git/git09-%E8%BF%9C%E7%A8%8B%E4%BB%93%E5%BA%93/</guid>
+      
+        <description>
+
+&lt;h1 id=&#34;git-远程仓库&#34;&gt;Git——远程仓库&lt;/h1&gt;
+
+&lt;h2 id=&#34;1-克隆-git-clone&#34;&gt;1. 克隆（git clone）&lt;/h2&gt;
+
+&lt;p&gt;可以使用git clone命令来备份仓库。git clone 支持采用多种协议表示仓库地址。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;本地协议：file:///path/repo.git&lt;/li&gt;
+&lt;li&gt;http协议：http(s)://host:port/path/repo.git&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;ssh协议：user@host:file:///path/repo.git&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;git clone file:///xxx/repo.git
+
+#使用--bare指定克隆不带工作区的仓库。
+git clone --bare file:///xxx/.git yyy.git&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;其实还有一种Git 协议。这是一个包含在Git 软件包中的特殊守护进程； 它会监听一个提供类似于SSH 服务的特定端口（9418），而无需任何授权。用Git 协议运营仓库，你需要创建git-export-daemon-ok 文件――它是协议进程提供仓库服务的必要条件――但除此之外该服务没有什么安全措施。要么所有人都能克隆Git 仓库，要么谁也不能。这也意味着该协议通常不能用来进行推送。你可以允许推送操作；然而由于没有授权机制，一旦允许该操作，网络上任何一个知道项目URL 的人将都有推送权限。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id=&#34;2-关联远程仓库&#34;&gt;2. 关联远程仓库&lt;/h2&gt;
+
+&lt;p&gt;远程仓库是指托管在网络上的项目仓库，可供拉取和推送数据，分享各个成员各自的工作进展，远程仓库可能会有好多个。本地仓库可以添加对应的远程仓库配置（关联远程仓库）。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;span class=&#34;lnt&#34;&gt; 1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;11
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;12
+&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;#根据url在本地仓库下添加远程仓库配置，该远程仓库配置通过remote-name别名标识。
+$ git remote add [remote-name] [远程仓库url]
+
+#修改远程仓库别名
+$ git remote rename old new
+
+#废除远程仓库，废除的是本地的远程仓库配置
+$ git remote rm new
+
+#查看当前远程分支，若指定 -v for verbose
+$ git remote
+$ git remote show [remote-name]&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;h2 id=&#34;3-远程分支与跟踪分支&#34;&gt;3. 远程分支与跟踪分支&lt;/h2&gt;
+
+&lt;p&gt;远程分支Remote是从远程仓库上同步下来的，Remote分支不能被check out。Git把他们当作是这些分支在远端服务器上最后状态的一种书签。所以，远程分支并不能直接用于本地开发，需要合并到本地分支，或者使用跟踪分支（跟踪分支也是一种本地分支）才能在本地进行开发提交工作。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;远程分支（remote branch）：是对从远程仓库同步到本地的分支的索引。它们实际上是一些无法移动的本地分支，只有在进行Git 的网络活动时才会更新。远程分支就像是书签，提醒着你上次连接远程仓库时上面各分支的位置。我们用&lt;code&gt;remote/远程仓库名/分支名&lt;/code&gt; 这样的形式表示远程分支。&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;跟踪分支(tracking branch)：跟踪分支是一种和远程分支有直接联系的 本地分支。在跟踪分支里输入 git push，Git 会自行推断应该向哪个远程仓库的哪个分支推送数据。反过来，在 这些分支里运行 git pull 会获取所有远程索引，并把它们的数据都合并到本地分支中来。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;span class=&#34;lnt&#34;&gt; 1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;11
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;12
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;13
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;14
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;15
+&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;#创建自定义的跟踪分支
+git checkout -b [分支名] [remote-name]/[远程分支名]
+
+#git1.6.2以上版本，还支持通过--track简化方式直接创建跟踪分支，这种情况下跟踪分支命名格式默认取自远程分支
+git checkout --track [remote-name]/[远程分支名]
+
+#--track的例子
+$ git checkout --track origin/serverfix
+Branch serverfix set up to track remote branch refs/remotes/origin/serverfix. Switched to a new branch &amp;#34;serverfix&amp;#34;
+
+#删除远程分支
+git push origin --delete &amp;lt;BranchName&amp;gt;
+
+#查看跟踪分支与远程分支关系
+git branch -avv&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;如果是克隆了一个仓库，会自动添加一个默认名为origin的远程仓库。实际上，默认情况下git clone 命令本质上就是自动创建了本地的master 分支用于跟踪远程仓库中的master 分支（假设远程仓库确实有master 分支）。这正是下文提到的git push 和git pull 一开始就能正常工作的原因。&lt;/p&gt;
+
+&lt;h2 id=&#34;4-git-fetch-与-git-pull&#34;&gt;4. git fetch 与 git pull&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;git fetch：该命令会到指定的远程仓库中拉取所有你本地仓库中还没有的数据。有一点很重要，需要记住，fetch 命令只是将远端的数据拉到本地仓库，并不自动合并到当前工作分支，只有当你确实准备好了，才能手工合并。&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;git push：要想和其他人分享某个本地分支，你需要使用git push命令把它推送到一个你拥有写权限的远程仓库。注意，你的本地分支不会被自动同步到你引入的远程分支中，除非你明确执行推送操作。另外，只有在所克隆的服务器上有写权限，或者同一时刻没有其他人在推数据，push命令才会如期完成任务。如果在你推数据前，已经有其他人推送了若干更新，那你的推送操作就会被驳回。你必须先把他们的更新抓取到本地，合并到自己的项目中，然后才可以再次推送。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;span class=&#34;lnt&#34;&gt; 1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;11
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;12
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;13
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;14
+&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;#从远程仓库拉取所有本地仓库中还没有的数据
+git fetch [remote-name]
+#推送同步到远程仓库
+git push [remote-name]
+#pull分两步，一是fetch，二是merge到本地
+git pull
+
+#向远程仓库推送分支更新
+$ git push [remote-name] [本地分支]:[远程分支]
+#若本地分支名与远程分支名相同，可以写成如下形式
+$ git push [remote-name] [branch-name]
+
+#另外，在跟踪分支里输入git push，Git 会自行推断应该向哪个服务器的哪个分支推送数据。
+$ git push&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;注意，如果不再需要某个远程分支了，比如搞定了某个特性并把它合并进了远程的 master 分支(或任何其他存放 稳定代码的地方)，可以用这个非常无厘头的语法来删除它:git push [远程名] :[分支名]。如果想在服务器上删 除 serverfix 分支，运行下面的命令，服务器上的分支没了。（等于是在说“在这里提取空白然后把它变成[远程分支]）&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;span class=&#34;lnt&#34;&gt; 1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;11
+&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;$ git push origin :serverfix
+To git@github.com:schacon/simplegit.git
+- [deleted] serverfix
+
+#删除分支
+git branch --d fix_burncpu
+# for --d --f 
+git branch --D fix_burncpu
+
+#删除本地的远程分支
+git branch --delete --remote origin/fix_burncpu&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;h2 id=&#34;5-多人合作禁忌-永远不要rebase那些已经推送到远程仓库的更新&#34;&gt;5. 多人合作禁忌：永远不要rebase那些已经推送到远程仓库的更新&lt;/h2&gt;
+
+&lt;p&gt;注意，在公开分支上进行rebase操作会带来问题。永远不要rebase那些已经推送到公共仓库的更新。因为在rebase的时候，实际上抛弃了一些现存的commit 而创造了一些类似但不同的新commit。rebase会改变这些commit的SHA-1 校验值，这样Git 会把它们当作新的commit，然而这时候在你的提交历史早就有了这部分的内容。如果你把commit 推送到某处然后其他人下载并在其基础上工作，然后你用git rebase 重写了这些commit 再推送一次，你的合作者就不得不重新合并他们的工作，这样当你再次从他们那里获取内容的时候事情就会变得一团糟。如果把rebase当成一种在推送之前清理提交历史的手段，而且仅仅rebase那些永远不会公开的commit，那就不会有任何问题。如果rebase那些已经公开的commit，而与此同时其他人已经用这些commit 进行了后续的开发工作，那你有得麻烦了。&lt;/p&gt;
+
+&lt;h2 id=&#34;6-多人合作禁忌-永远不要push-f方式强制向远处公共仓库推送更新&#34;&gt;6. 多人合作禁忌：永远不要push -f方式强制向远处公共仓库推送更新&lt;/h2&gt;
+
+&lt;p&gt;git push -f 即使是 non-fast-forward也能push，该命令需要禁止，否则可能造成远程仓库的commit丢失。&lt;/p&gt;
+
+&lt;p&gt;注意，github可以配置禁用git push -f 。&lt;/p&gt;
+
+&lt;p&gt;可以使用fork的机制，解决这些问题。&lt;/p&gt;
+
+&lt;h2 id=&#34;7-技巧&#34;&gt;7. 技巧&lt;/h2&gt;
+
+&lt;ol&gt;
+&lt;li&gt;不同人修改了不同文件如何处理？           git fetch -&amp;gt; merge/rebase（自动归并） -&amp;gt; git push&lt;/li&gt;
+&lt;li&gt;不同人修改了同文件的不同区域如何处理？    git fetch -&amp;gt; merge/rebase（自动归并） -&amp;gt; git push&lt;/li&gt;
+&lt;li&gt;不同人修改了同文件的同一区域如何处理？    git fetch -&amp;gt; merge/rebase（手工归并） -&amp;gt; git push&lt;/li&gt;
+&lt;li&gt;同时变更了文件名和文件内容如何处理？      git fetch -&amp;gt; merge/rebase（自动归并） -&amp;gt; git push&lt;/li&gt;
+&lt;li&gt;把同一文件改成了不同的文件名如何处理？    git fetch -&amp;gt; merge/rebase（git add + git rm 一项一项处理;最后git commit） -&amp;gt; git push&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;可以使用rerere记录备案，解决rebade重复解决冲突的问题&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;6
+&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;git config --global rerere.enabled true
+git merge xxx
+解决冲突
+git add 
+git commit 
+git reset --hard HEAD~1&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;</description>
+      
+    </item>
+    
+    <item>
+      <title>Git(08)-分支操作</title>
+      <link>https://yixy.github.io/youzhilane/post/11%E5%85%B6%E4%BB%96/git/git08-%E5%88%86%E6%94%AF%E6%93%8D%E4%BD%9C/</link>
+      <pubDate>Sat, 16 Nov 2019 23:54:48 +0800</pubDate>
+      
+      <guid>https://yixy.github.io/youzhilane/post/11%E5%85%B6%E4%BB%96/git/git08-%E5%88%86%E6%94%AF%E6%93%8D%E4%BD%9C/</guid>
+      
+        <description>
+
+&lt;h1 id=&#34;git-分支操作&#34;&gt;Git——分支操作&lt;/h1&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;git中新建分支为什么快?由于Git 中的分支实际上仅是一个包含所指对象校验和（40 个字符长度SHA-1 字串）的文件，所以创建和销毁一个分支就变得非常廉价。说白了，新建一个分支就是向一个文件写入41 个字节（外加一个换行符）那么简单，当然也就很快了。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id=&#34;1-分支的新建及检出&#34;&gt;1. 分支的新建及检出&lt;/h2&gt;
+
+&lt;p&gt;新建分支，实际上就是创建了一个指向当前分支最后一次commit对象的引用文件。&lt;/p&gt;
+
+&lt;p&gt;检出某个分支，实际上就是修改HEAD文件的内容，使其内容包含这个分支的引用，并把工作目录中的文件换成这个分支所指向的快照内容。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;span class=&#34;lnt&#34;&gt; 1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;11
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;12
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;13
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;14
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;15
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;16
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;17
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;18
+&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;#新建分支
+$ git branch [分支名]
+#检出分支
+$ git checkout [分支名]
+#新建分支并检出该分支
+$ git checkout -b [分支名]
+
+#查看分支清单
+$ git branch
+#查看有哪些分支，及各个分支最后一次commit 信息
+$ git branch -v
+#查看所有分支，包括远程分支
+$ git branch -a
+
+#删除分支，-D强制删除
+$ git branch -d testing
+#git branch -d 删除未合并的分支会导致失败。如果确认可以强制删除：
+$ git branch -D testing&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;h2 id=&#34;2-分支合并&#34;&gt;2. 分支合并&lt;/h2&gt;
+
+&lt;p&gt;git提供分支合并的功能，有两种合并分支的方式：合并和衍合。衍合按照每行改变发生的次序重演发生的改变，而合并是把最终结果合在一起。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;合并提交（merge commit）：只需检出想要更新的分支，并运行git merge 命令指定来源。Git 会用两个分支的末端和它们的共同祖先进行一次简单的三方合并计算，对三方合并的结果作一新的快照，并自动创建一个指向它的commit。最后，当前分支指向合并后的那个commit。&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;衍合提交（rebase commit）：只需检出想要更新的分支，rebase 命令把当前检出分支里提交的改变在另一个分支里重放一遍。它的原理是回到两个分支（你所在的分支和你想要衍合进去的分支）的共同祖先，提取你所在分支每次提交时产生的差异（diff），把这些差异分别保存到临时文件里，然后从当前分支转换到你需要衍合入的分支，依序施用每一个差异补丁文件。最后将原当前分支指向衍合后的最后一个commit。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;7
+&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;#merge：将指定分支以merge方式合并到当前分支
+$ git merge 源分支
+#rebase：
+其原理是回到两个分支（当前分支和要衍合的目标分支）的共同祖先，提取当前分支每次提交时产生的差异（diff），把这些差异分别保存到临时文件里，然后检出到需要衍合入的分支，依序施用每一个差异补丁文件。
+在衍合的时候，实际上抛弃了一些现存的commit 而创造了一些类似但不同的新commit。
+所以，一定要注意，永远不要衍合那些已经推送到公共仓库的更新。
+$ git rebase 目标分支&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;注意，merge的时候，若两个分支没有共同祖先，则可以通过&lt;code&gt;--allow-unrelated-histories&lt;/code&gt;来显式指定合并。&lt;/p&gt;
+
+&lt;p&gt;查看合并情况。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;#查看哪些分支已被并入当前分支
+$ git branch --merged
+#查看尚未合并入当前分支的工作
+$ git branch --no-merged&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;h2 id=&#34;3-处理冲突&#34;&gt;3. 处理冲突&lt;/h2&gt;
+
+&lt;p&gt;有时候合并操作并不会如此顺利。虽然一般情况下git能够进行自动合并，如果你修改了两个待合并分支里同一个文件的同一部分，Git 就无法干净地把两者合到一起（逻辑上说，这种问题只能由人来解决）。Git 会在有冲突的文件里加入标准的冲突解决标记，可以通过它们来手工定位并解决这些冲突。在解决了所有文件里的所有冲突后，运行git add 将把它们标记为已解决（resolved）。因为一旦暂存，就表示冲突已经解决。若所有冲突都已解决，就可以用gitcommit 来完成这次合并提交。&lt;/p&gt;
+
+&lt;h2 id=&#34;4-detached-head&#34;&gt;4. detached HEAD&lt;/h2&gt;
+
+&lt;p&gt;detached HEAD是指HEAD指向的commit是没有和分支绑定的。这种情况下如果新增commit，由于没有和分支绑定，在分支切换后可能会被GIT丢弃。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;span class=&#34;lnt&#34;&gt; 1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;11
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;12
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;13
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;14
+&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;#checkout到一个没有和分支绑定的commit，进入到detached HEAD状态
+$ git checkout d042d5fe736a0395f53f2627a561f24ea2f15c02
+Note: checking out &amp;#39;d042d5fe736a0395f53f2627a561f24ea2f15c02&amp;#39;.
+
+You are in &amp;#39;detached HEAD&amp;#39; state. You can look around, make experimental
+changes and commit them, and you can discard any commits you make in this
+state without impacting any branches by performing another checkout.
+
+If you want to create a new branch to retain commits you create, you may
+do so (now or later) by using -b with the checkout command again. Example:
+
+  git checkout -b &amp;lt;new-branch-name&amp;gt;
+
+HEAD is now at d042d5f mod a&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;h2 id=&#34;5-使用rebase变更历史commit&#34;&gt;5. 使用rebase变更历史commit&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;在讨论下面的内容之前，需要注意：远程分支上不允许修改历史提交，因为其他开发者可能已经基于这些历史提交进行开发了！！！！！！&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;使用rebase对commit历史做变更。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;#最近一次提交的message做变更。注意，最后的commit会被变更，其hash值也会重新生成。
+git commit --amend
+
+#使用rebase对多个commit历史做变更。-i指定是交互模式。这时，GIT会让提交者对这些commit进行选择和处理。实际上，整个过程HEAD其实是有进入detached HEAD状态的，只是GIT最终都恢复回来了
+git rebase -i 对应父提交&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;</description>
+      
+    </item>
+    
+    <item>
+      <title>Git(06)-探秘.git目录</title>
+      <link>https://yixy.github.io/youzhilane/post/11%E5%85%B6%E4%BB%96/git/git06-%E6%8E%A2%E7%A7%98.git%E7%9B%AE%E5%BD%95/</link>
+      <pubDate>Sat, 16 Nov 2019 23:42:59 +0800</pubDate>
+      
+      <guid>https://yixy.github.io/youzhilane/post/11%E5%85%B6%E4%BB%96/git/git06-%E6%8E%A2%E7%A7%98.git%E7%9B%AE%E5%BD%95/</guid>
+      
+        <description>
+
+&lt;h1 id=&#34;git-探秘-git目录&#34;&gt;Git——探秘.git目录&lt;/h1&gt;
+
+&lt;p&gt;从根本上来讲Git 是一套内容寻址(content-addressable) 文件系统。从内部来看，Git 是简单的key-value 数据存储。它允许插入任意类型的内容，并会返回一个键值，通过该键值可以在任何时候再取出该内容。&lt;/p&gt;
+
+&lt;p&gt;几乎所有Git 存储和操作的内容都位于.git目录下。如果你要备份或复制一个库，基本上将这一目录拷贝至其他地方就可以了。&lt;/p&gt;
+
+&lt;h2 id=&#34;1-git对象&#34;&gt;1. git对象&lt;/h2&gt;
+
+&lt;p&gt;Git 存储数据内容的方式是为每份内容生成一个使用 zlib 压缩保存的文件，我们称之为git对象。该文件包含内容本身和一个头信息，头信息中包含对象类型及内容长度等信息。git会取得文件内容与头信息的SHA-1 校验和，在.git/objects目录下创建以该校验和前两个字符为名称的子目录，并以(校验和) 剩下38 个字符作为文件名并保存至子目录下。&lt;/p&gt;
+
+&lt;p&gt;虽然git对象分为几种类型，但是所有的Git 对象都以上面提到的这种方式存储，惟一的区别是文件头中的git对象类型不同，另外，文件内容中不同类型可能会有固定的格式(例如commit 和tree对象)。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://yixy.github.io/youzhilane/youzhilane/img/Git-commit对象.jpg&#34; alt=&#34;commit对象&#34; /&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;blob对象：移入暂存区的文件，git就会为之创建对象（blob对象）。&lt;/li&gt;
+&lt;li&gt;tree对象：当使用git commit 时，git会创建tree对象并保存到git仓库中，这些tree对象可以看成是一棵树，对应该次提交时的文件的目录结构信息。注意，这个tree对象可以看成是对当前工作区已纳入仓库管理的文件的快照（包括本期有变动的和未变动的），可以根据这个树的根节点去检索目录和文件。树中实际存储的是某个目录下一系列文件的文件名，以及对应的git对象的类型（包括blob对象和tree对象)、SHA-1值、权限模式(mode)等信息。&lt;/li&gt;
+&lt;li&gt;commit对象：在tree对象保存之后，Git 会创建一个commit对象，用于记录仓库中某次提交的快照。它实际存储的是这次提交对应的tree对象树的根节点的SHA-1值，并且还包含了提交者、提交时间、提交注释，提交对象还可能包含一定数量（也可能没有）指向该commit对象直接祖先的指针（即上次commit对象的SHA-1值）。第一次提交是没有直接祖先的，普通提交有一个祖先，由两个或多个分支合并产生的提交则有多个祖先。&lt;/li&gt;
+&lt;li&gt;tag对象：用于指向一个 commit。Tag 对象包含一个标签名,一组数据,一个消息和一个commit对象的SHA-1值。tag就像是一个分支引用，但是它不会变化——永远指向同一个commit，仅仅是提供一个更加友好的名字。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;运行　git add 命令时，Git 首先保存修改了的文件的blob，更新索引；运行git commit 命令时，先创建tree 对象，最后创建commit 对象，这些commit 对象指向了顶层tree 对象以及先前的commit 对象。&lt;/p&gt;
+
+&lt;p&gt;Git 往磁盘保存git对象时默认使用的格式叫松散对象 (loose object) 格式。Git 时不时地将这些对象打包至一个叫 packfile 的二进制文件以节省空间 并提高效率。当仓库中有太多的松散对象,或是手工调用 git gc 命令,或推送至远程服 务器时,Git 都会这样做。生成packfile 包的同时会生成一个索引，索引文件包含了 packfile 的偏移信息,这样就可以快速定位任意一 个指定对象。Git 打包对象时,会查找命名及尺寸相近的文件,并只保存文 件不同版本之间的差异内容。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;6
+&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;#查看git对象类型
+git cat-file -t 对象hash值
+#查看hash对应的git对象
+git cat-file -p 对象hash值
+#查看所有分支详细信息
+git branch -av&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;h2 id=&#34;2-git目录内容&#34;&gt;2. .git目录内容&lt;/h2&gt;
+
+&lt;p&gt;核心内容如下：&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;objects：保存文件系统的实际数据内容，该目录存储所有git文件系统的数据内容（即各个类型的git对象）。注意，对每个git对象，会在.git/objects目录下会创建以该校验和前两个字符为名称的子目录，并以(校验和) 剩下38 个字符作为文件名并保存至子目录下。&lt;/li&gt;
+&lt;li&gt;refs：该目录存储指向commit提交对象或tag标签的指针(hash值）。分为.git/refs/heads（存放本地分支指针，即该分支最后一个commit的hash）、.git/refs/remotes（存放远程分支指针，即该分支最后一个commit的hash）、.git/refs/tags（含附注的标签指针指向tag对象；轻量级标签指针指向commit对象）等子目录，分别存放分支的最后一个提交对象和tag对应的提交对象的hash值。&lt;/li&gt;
+&lt;li&gt;HEAD：文本文件，其内容是refs下的文件名。该文件一般指向当前分支的最后一个提交。通过&lt;code&gt;git checkout commit对象&lt;/code&gt;命令可以转换为HEAD detached状态，即将HEAD指向某个没有关联分支的提交，这种状态下该提交的内容很容易被git丢弃。&lt;/li&gt;
+&lt;li&gt;index：该文件则保存了暂存区域信息。暂存操作会对每一个已跟踪文件计算校验和（SHA-1 哈希字串），然后对当前版本的有修改的已跟踪文件生成新的blob对象，并将其校验和加入暂存区域。注意，所谓的暂存区域只不过是个简单的文件，一般都放在.git 目录中。有时候人们会把这个文件叫做索引文件，不过标准说法还是叫暂存区域。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;其余文件及目录的简单描述如下：&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;branches：新版本的Git 不再使用branches 目录。&lt;/li&gt;
+&lt;li&gt;description：该文件仅供GitWeb 程序使用，所以不用关心该内容。&lt;/li&gt;
+&lt;li&gt;config：该文件包含了项目特有的配置选项。&lt;/li&gt;
+&lt;li&gt;info：该目录保存了一份不希望在.gitignore 文件中管理的忽略模式(ignored patterns) 的全局可执行文件。&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;hooks：该目录包含了客户端或服务端钩子脚本。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;span class=&#34;lnt&#34;&gt; 1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;11
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;12
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;13
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;14
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;15
+&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;$ cd .git
+$ ls -al
+total 40
+drwxr-xr-x  12 sweeat  wheel  384  7 21 18:32 .
+drwxr-xr-x   3 sweeat  wheel   96  7 21 18:32 ..
+-rw-r--r--   1 sweeat  wheel    5  7 21 18:32 COMMIT_EDITMSG    //
+-rw-r--r--   1 sweeat  wheel   23  7 21 07:48 HEAD              //当前分支索引
+-rw-r--r--   1 sweeat  wheel  137  7 21 07:48 config            //local仓库配置
+-rw-r--r--   1 sweeat  wheel   73  7 21 07:48 description       //
+drwxr-xr-x  13 sweeat  wheel  416  7 21 07:48 hooks             //
+-rw-r--r--   1 sweeat  wheel   65  7 21 18:32 index             //
+drwxr-xr-x   3 sweeat  wheel   96  7 21 07:48 info              //
+drwxr-xr-x   4 sweeat  wheel  128  7 21 18:24 logs              //
+drwxr-xr-x  14 sweeat  wheel  448  7 21 18:32 objects           //
+drwxr-xr-x   4 sweeat  wheel  128  7 21 07:48 refs              //分支、tag索引&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+      
+    </item>
+    
+    <item>
+      <title>Git(05)-将文件纳入GIT仓库管理</title>
+      <link>https://yixy.github.io/youzhilane/post/11%E5%85%B6%E4%BB%96/git/git05-%E5%B0%86%E6%96%87%E4%BB%B6%E7%BA%B3%E5%85%A5git%E4%BB%93%E5%BA%93%E7%AE%A1%E7%90%86/</link>
+      <pubDate>Sat, 16 Nov 2019 23:41:13 +0800</pubDate>
+      
+      <guid>https://yixy.github.io/youzhilane/post/11%E5%85%B6%E4%BB%96/git/git05-%E5%B0%86%E6%96%87%E4%BB%B6%E7%BA%B3%E5%85%A5git%E4%BB%93%E5%BA%93%E7%AE%A1%E7%90%86/</guid>
+      
+        <description>
+
+&lt;h1 id=&#34;git-将文件纳入git仓库管理&#34;&gt;Git——将文件纳入GIT仓库管理&lt;/h1&gt;
+
+&lt;h2 id=&#34;1-unstaged文件移入暂存区-stage-并提交-commit&#34;&gt;1. unstaged文件移入暂存区（stage）并提交（commit）&lt;/h2&gt;
+
+&lt;p&gt;通过在commit前增加一个暂存区的概念，实现可以用多个指令精确的挑选出需要提交的所有修改，然后再一次性的（原子性的）提交到版本库。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://yixy.github.io/youzhilane/youzhilane/img/Git-暂存区.jpg&#34; alt=&#34;git暂存区&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;工作目录中unstaged的文件移入暂存区。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;7
+&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;#将文件移入暂存区，对应两种情况：
+#1、未跟踪文件，变为已跟踪文件，移入暂存区
+#2、已跟踪文件，发生修改后未被暂存，移入暂存区
+$ git add README.txt
+
+# 针对第2种情况，可以使用如下命令将已跟踪文件的所有修改文件移入暂存区
+git add -u&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;暂存区文件提交至仓库。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;git commit -m &amp;#39;this is commit message&amp;#39;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;其他命令。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;span class=&#34;lnt&#34;&gt; 1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;11
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;12
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;13
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;14
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;15
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;16
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;17
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;18
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;19
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;20
+&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;#检查工作目录下文件状态
+$ git status
+
+#取消unstaged状态的文件修改，注意，因为没有暂存提交，此时取消修改无法找回
+$ git checkout -- README.txt
+
+#取消将文件移入暂存区的操作（等价于git reset HEAD README.txt）
+$ git reset HEAD -- README.txt
+
+#撤销最近几次的commit。暂存区的内容也同步丢弃。
+git reset --hard &amp;lt;commit hash&amp;gt;
+
+#此命令将使用当前的暂存区域快照提交。如果上一次提交完没有作任何改动，直接运行此命令的话，相当于将本次提交与上一次提交合并，生成一份快照。
+$ git commit --amend
+
+#修改author
+git commit --amend --author=&amp;#34;NewAuthor &amp;lt;NewEmail@address.com&amp;gt;&amp;#34;
+
+#跳过暂存区提交。自动把所有已经跟踪过的文件暂存起来一并提交，从而跳过git add 步骤
+$ git commit -a -m &amp;#39;added new README&amp;#39;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;h2 id=&#34;2-删除与移动文件&#34;&gt;2. 删除与移动文件&lt;/h2&gt;
+
+&lt;p&gt;删除文件。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;#删除文件，并从仓库中移除（在缓存区中待提交）
+$ git rm README.txt
+#仓库中移除文件（在缓存区中待提交），但不删除文件（变为未跟踪）
+$ git rm --cached README.txt&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;删除与移动文件。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;8
+&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;#删除文件（在缓存区中待提交）
+$ git rm README.txt
+#移动文件（在缓存区中待提交）
+$ git mv file_from file_to
+#git mv等价于以下命令：
+$ mv README.txt README
+$ git rm README.txt
+$ git add README&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;h2 id=&#34;3-查看提交历史&#34;&gt;3. 查看提交历史&lt;/h2&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;7
+&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;#查看提交历史
+$ git log
+$ git log --online
+$ git log --all
+#最近4次提交记录
+$ git log -n4
+$ git log --graph&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;h2 id=&#34;4-差异对比&#34;&gt;4. 差异对比&lt;/h2&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;span class=&#34;lnt&#34;&gt; 1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
+&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;#查看尚未暂存的文件修改了哪些部分（工作空间与暂存区的差异）
+$ git diff
+#查看已经暂存起来的文件和上次提交时的快照之间的差异（暂存区与仓库的差异）
+$ git diff --cached
+
+#查看当前提交和祖父提交的差异
+git diff HEAD HEAD~1~1
+# 比较两个commit(或分支)之间的差异
+git diff commit1 commit2 -- &amp;lt;file&amp;gt;
+git diff branch1 branch2 -- &amp;lt;file&amp;gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;h2 id=&#34;5-stash&#34;&gt;5. stash&lt;/h2&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;9
+&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;#将暂存区内容stash
+git stash
+#查看stash内容
+git stash list 
+
+#从stash中恢复，stash中仍保留
+git stash apply
+#从stash中恢复，stash中不保留
+git stash pop&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;h2 id=&#34;6-修改历史提交&#34;&gt;6. 修改历史提交&lt;/h2&gt;
+
+&lt;p&gt;可以使用rebase对commit历史做变更，-i指定需要修改的提交的父提交。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;git rebase -i 对应父提交&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;注意，有一个原则：&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;共享分支上不允许修改历史提交，因为其他开发者可能已经基于这些历史提交进行开发了。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;所以，若已提交至原程分支，最好不要用rebase。&lt;/p&gt;
+</description>
+      
+    </item>
+    
+    <item>
+      <title>Git(04)-.gitignore配置</title>
+      <link>https://yixy.github.io/youzhilane/post/11%E5%85%B6%E4%BB%96/git/git04-.gitignore%E9%85%8D%E7%BD%AE/</link>
+      <pubDate>Sat, 16 Nov 2019 23:32:34 +0800</pubDate>
+      
+      <guid>https://yixy.github.io/youzhilane/post/11%E5%85%B6%E4%BB%96/git/git04-.gitignore%E9%85%8D%E7%BD%AE/</guid>
+      
+        <description>
+
+&lt;p&gt;Git(04)-.gitignore配置&lt;/p&gt;
+
+&lt;p&gt;一般我们总会有些文件无需纳入Git 的管理，也不希望它们总出现在未跟踪文件列表。这些通常都是些自动生成的文件，像是日志或者编译过程中创建的等等。我们可以创建一个名为.gitignore 的文件，列出要忽略的文件模式。&lt;/p&gt;
+
+&lt;h2 id=&#34;1-忽略未纳入仓库的文件&#34;&gt;1. 忽略未纳入仓库的文件&lt;/h2&gt;
+
+&lt;p&gt;.gitignore配置只针对未纳入仓库暂存区且不在当前commit存在的文件生效。之所以说不在当前commit，是经过简单的实验测试的，可以发现&lt;code&gt;git rm&lt;/code&gt;并且提交该操作，对应的文件可以用.gitignore进行配置忽略。&lt;/p&gt;
+
+&lt;h2 id=&#34;2-配置规则&#34;&gt;2. 配置规则&lt;/h2&gt;
+
+&lt;p&gt;.gitignore 的格式规范如下：&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;所有空行或者以注释符号＃ 开头的行都会被Git 忽略。&lt;/li&gt;
+&lt;li&gt;可以使用标准的glob 模式匹配。&lt;/li&gt;
+&lt;li&gt;匹配模式最后跟反斜杠（/）说明要忽略的是目录。&lt;/li&gt;
+&lt;li&gt;要忽略指定模式以外的文件或目录，可以在模式前加上惊叹号（!）取反。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;所谓的glob 模式是指shell 所使用的简化了的正则表达式。星号（ * ）匹配零个或多个任意字符；[abc] 匹配任何一个列在方括号中的字符（这个例子要么匹配一个a，要么匹配一个b，要么匹配一个c）；问号（?）只匹配一个任意字符；如果在方括号中使用短划线分隔两个字符，表示所有在这两个字符范围内的都可以匹配（比如[0-9] 表示匹配所有0 到9 的数字）。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;#忽略后缀为class的文件
+*.class
+#末尾带斜线，代表目录，忽略该目录下的所有文件
+dir/&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;</description>
+      
+    </item>
+    
+    <item>
+      <title>Git(03)-新建仓库</title>
+      <link>https://yixy.github.io/youzhilane/post/11%E5%85%B6%E4%BB%96/git/git03-%E6%96%B0%E5%BB%BA%E4%BB%93%E5%BA%93/</link>
+      <pubDate>Sat, 16 Nov 2019 22:25:57 +0800</pubDate>
+      
+      <guid>https://yixy.github.io/youzhilane/post/11%E5%85%B6%E4%BB%96/git/git03-%E6%96%B0%E5%BB%BA%E4%BB%93%E5%BA%93/</guid>
+      
+        <description>
+
+&lt;h1 id=&#34;git-新建仓库&#34;&gt;Git——新建仓库&lt;/h1&gt;
+
+&lt;h2 id=&#34;1-将已有项目代码纳入git管理&#34;&gt;1. 将已有项目代码纳入git管理&lt;/h2&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;$ cd 项目代码目录
+$ git init&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;h2 id=&#34;2-创建空白仓库&#34;&gt;2. 创建空白仓库&lt;/h2&gt;
+
+&lt;p&gt;可以使用如下命令新建一个目录，并在该目录中创建一个空白的仓库。仓库默认命名为.git。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;8
+&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;$ git init mygit
+Initialized empty Git repository in /data/mygit/.git/
+$ cd mygit
+$ ls
+.git
+$ cd .git
+$ ls 
+HEAD        config      description hooks       info        objects     refs&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;也可以直接创建一个不带工作空间的仓库。不带工作空间的仓库习惯上命名为xxx.git。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;$ git init --bare mygit.git
+$ cd mygit.git/
+$ ls
+HEAD        config      description hooks       info        objects     refs&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;</description>
+      
+    </item>
+    
+    <item>
+      <title>Git(02)-最小化配置</title>
+      <link>https://yixy.github.io/youzhilane/post/11%E5%85%B6%E4%BB%96/git/git02-%E6%9C%80%E5%B0%8F%E5%8C%96%E9%85%8D%E7%BD%AE/</link>
+      <pubDate>Sat, 16 Nov 2019 21:58:52 +0800</pubDate>
+      
+      <guid>https://yixy.github.io/youzhilane/post/11%E5%85%B6%E4%BB%96/git/git02-%E6%9C%80%E5%B0%8F%E5%8C%96%E9%85%8D%E7%BD%AE/</guid>
+      
+        <description>
+
+&lt;h1 id=&#34;git-最小化配置&#34;&gt;Git——最小化配置&lt;/h1&gt;
+
+&lt;h2 id=&#34;1-git-config&#34;&gt;1. git config&lt;/h2&gt;
+
+&lt;p&gt;Git 提供了一个叫做git config 的工具（实际是git-config 命令，只不过可以通过git 加一个名字来呼叫此命令），专门用来配置或读取相应的工作环境变量。而正是由这些环境变量，决定了Git 在各个环节的具体工作方式和行为。这些变量可以存放在以下三个不同的地方：&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;/etc/gitconfig文件：系统中对所有用户都普遍适用的配置。若使用git config 时，用&amp;ndash;system 选项，读写的就是这个文件。&lt;/li&gt;
+&lt;li&gt;~/.gitconfig文件：用户目录下的配置文件只适用于该用户。若使用git config 时，用&amp;ndash;global 选项，读写的就是这个文件。&lt;/li&gt;
+&lt;li&gt;.git/config文件：当前仓库的git 目录中的配置文件，这里的配置仅仅针对当前仓库有效，用&amp;ndash;local 选项。不指定时默认是&amp;ndash;local&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;注意，上面每一个级别的配置都会覆盖上层的相同配置，例如.git/config 里的配置会覆盖/etc/gitconfig 中的同名变量。&lt;/p&gt;
+
+&lt;h2 id=&#34;2-常用配置&#34;&gt;2. 常用配置&lt;/h2&gt;
+
+&lt;p&gt;最小化配置。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;$ git config --global user.name &amp;#34;yixy&amp;#34;
+$ git config --global user.email youzhilane01@gmail.com&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;查看配置。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;$ git config --list --global&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;其他配置。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;$ git config --global core.editor emacs
+$ git config --global merge.tool vimdiff&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;清除配置。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;$ git config --unset --local user.name
+$ git config --unset --global user.name
+$ git config --unset --system user.name&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;</description>
+      
+    </item>
+    
+    <item>
+      <title>Git(01)-版本控制系统简介</title>
+      <link>https://yixy.github.io/youzhilane/post/11%E5%85%B6%E4%BB%96/git/git01-%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6%E7%B3%BB%E7%BB%9F%E7%AE%80%E4%BB%8B/</link>
+      <pubDate>Sat, 16 Nov 2019 21:58:12 +0800</pubDate>
+      
+      <guid>https://yixy.github.io/youzhilane/post/11%E5%85%B6%E4%BB%96/git/git01-%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6%E7%B3%BB%E7%BB%9F%E7%AE%80%E4%BB%8B/</guid>
+      
+        <description>
+
+&lt;h1 id=&#34;git-版本控制系统&#34;&gt;Git——版本控制系统&lt;/h1&gt;
+
+&lt;p&gt;Git是一款免费、开源的分布式版本控制系统。&lt;/p&gt;
+
+&lt;h2 id=&#34;1-cvcs与dvcs&#34;&gt;1. CVCS与DVCS&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;集中化版本控制系统（ Centralized Version Control Systems，简称CVCS ）：有一个单一的集中管理的服务器，保存所有文件的修订版本，而协同工作的人们都通过客户端连到这台服务器，取出最新的文件或者提交更新。&lt;/li&gt;
+&lt;li&gt;分布式版本控制系统（ Distributed Version Control System，简称DVCS ）：客户端并不只提取最新版本的文件快照，而是把原始的代码仓库完整地镜像下来。每一次的提取操作，实际上都是一次对代码仓库的完整备份。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;显而易见，CVCS很容易出现中央服务器的单点故障，而DVCS解决了这个问题。&lt;/p&gt;
+
+&lt;h2 id=&#34;2-git简介&#34;&gt;2。 Git简介&lt;/h2&gt;
+
+&lt;p&gt;Linus Torvalds 开发的 Git 是为了代替 BitKe来管理Linux内核代码。&lt;/p&gt;
+
+&lt;p&gt;Git 并不保存各个版本前后变化的差异数据。实际上，Git 更像是把变化的文件作快照后，记录在一个微型的文件系统中。每次提交更新时，它会纵览一遍所有文件的指纹信息并对每个文件作一个快照，然后保存一个指向这次快照的索引。注意，为提高性能，若文件没有变化，Git 不会再次保存，而只对上次保存的快照作一连接。在保存到Git 之前，所有数据都要进行内容的校验和（checksum）计算，并将此结果作为数据的唯一标识和索引。Git 使用SHA-1 算法计算数据的校验和，通过对文件的内容或目录的结构计算出一个SHA-1 哈希值，作为指纹字符串。该字串由40 个十六进制字符（0-9 及a-f）组成。Git 的工作完全依赖于这类指纹字串，所以你会经常看到这样的哈希值。实际上，所有保存在Git 数据库中的东西都是用此哈希值来作索引的，而不是靠文件名。&lt;/p&gt;
+
+&lt;h2 id=&#34;参考&#34;&gt;参考&lt;/h2&gt;
+
+&lt;p&gt;《Pro Git》&lt;/p&gt;
+</description>
+      
+    </item>
+    
+    <item>
+      <title>Oracle高可用集群方案</title>
+      <link>https://yixy.github.io/youzhilane/post/04%E6%95%B0%E6%8D%AE%E5%BA%93/oracle/oracle%E9%AB%98%E5%8F%AF%E7%94%A8%E9%9B%86%E7%BE%A4%E6%96%B9%E6%A1%88/</link>
+      <pubDate>Tue, 22 Oct 2019 19:23:51 +0800</pubDate>
+      
+      <guid>https://yixy.github.io/youzhilane/post/04%E6%95%B0%E6%8D%AE%E5%BA%93/oracle/oracle%E9%AB%98%E5%8F%AF%E7%94%A8%E9%9B%86%E7%BE%A4%E6%96%B9%E6%A1%88/</guid>
+      
+        <description>
+
+&lt;h2 id=&#34;rac-real-application-clusters&#34;&gt;RAC,  Real Application Clusters&lt;/h2&gt;
+
+&lt;p&gt;多个Oracle服务器组成一个共享的Cache，而这些Oracle服务器共享一个基于网络的存储。这个系统可以容忍单机/或是多机失败。不过系统内部的多个节点需要高速网络互连，基本上也就是要全部东西放在在一个机房内，或者说一个数据中心内。如果机房出故障，比如网络不通，那就坏了。所以仅仅用RAC还是满足不了一般互联网公司的重要业务的需要，重要业务需要多机房来容忍单个机房的事故。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://yixy.github.io/youzhilane/youzhilane/img/oracle-rac.jpg&#34; alt=&#34;oracle-rac&#34; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;data-guard&#34;&gt;Data Guard&lt;/h2&gt;
+
+&lt;p&gt;Data Guard这个方案就适合多机房的。某机房一个production的数据库，另外其他机房部署standby的数据库。Standby数据库分物理的和逻辑的。物理的standby数据库主要用于production失败后做切换。而逻辑的standby数据库则在平时可以分担production数据库的读负载。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://yixy.github.io/youzhilane/youzhilane/img/oracle-datagurad.jpg&#34; alt=&#34;oracle-datagurad&#34; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;maa-maximum-availability-architecture&#34;&gt;MAA, Maximum Availability Architecture&lt;/h2&gt;
+
+&lt;p&gt;MAA(Maximum Availability Architecture)其实不是独立的第三种，而是前面两种的结合，来提供最高的可用性。每个机房内部署RAC集群，多个机房间用Data Guard同步。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://yixy.github.io/youzhilane/youzhilane/img/oracle-maa.jpg&#34; alt=&#34;oracle-maa&#34; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;相关链接&#34;&gt;相关链接&lt;/h2&gt;
+
+&lt;p&gt;Oracle的三种高可用集群方案，&lt;a href=&#34;http://www.ha97.com/4185.html&#34;&gt;http://www.ha97.com/4185.html&lt;/a&gt;&lt;/p&gt;
+</description>
+      
+    </item>
+    
+    <item>
       <title>Go语言测试(2)-使用mock测试</title>
-      <link>https://yixy.github.io/youzhilane/post/%E4%BA%91%E8%AE%A1%E7%AE%97/go%E8%AF%AD%E8%A8%80/go%E8%AF%AD%E8%A8%80%E6%B5%8B%E8%AF%952-%E4%BD%BF%E7%94%A8mock%E6%B5%8B%E8%AF%95/</link>
+      <link>https://yixy.github.io/youzhilane/post/06%E4%BA%91%E8%AE%A1%E7%AE%97/go%E8%AF%AD%E8%A8%80/go%E8%AF%AD%E8%A8%80%E6%B5%8B%E8%AF%952-%E4%BD%BF%E7%94%A8mock%E6%B5%8B%E8%AF%95/</link>
       <pubDate>Mon, 30 Sep 2019 22:16:33 +0800</pubDate>
       
-      <guid>https://yixy.github.io/youzhilane/post/%E4%BA%91%E8%AE%A1%E7%AE%97/go%E8%AF%AD%E8%A8%80/go%E8%AF%AD%E8%A8%80%E6%B5%8B%E8%AF%952-%E4%BD%BF%E7%94%A8mock%E6%B5%8B%E8%AF%95/</guid>
+      <guid>https://yixy.github.io/youzhilane/post/06%E4%BA%91%E8%AE%A1%E7%AE%97/go%E8%AF%AD%E8%A8%80/go%E8%AF%AD%E8%A8%80%E6%B5%8B%E8%AF%952-%E4%BD%BF%E7%94%A8mock%E6%B5%8B%E8%AF%95/</guid>
       
         <description>
 
@@ -237,10 +1321,10 @@ func read(fn OpenFunc, path string) error {
     
     <item>
       <title>Go语言测试(1)-单元测试与基准测试</title>
-      <link>https://yixy.github.io/youzhilane/post/%E4%BA%91%E8%AE%A1%E7%AE%97/go%E8%AF%AD%E8%A8%80/go%E8%AF%AD%E8%A8%80%E6%B5%8B%E8%AF%951-%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95%E4%B8%8E%E5%9F%BA%E5%87%86%E6%B5%8B%E8%AF%95/</link>
+      <link>https://yixy.github.io/youzhilane/post/06%E4%BA%91%E8%AE%A1%E7%AE%97/go%E8%AF%AD%E8%A8%80/go%E8%AF%AD%E8%A8%80%E6%B5%8B%E8%AF%951-%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95%E4%B8%8E%E5%9F%BA%E5%87%86%E6%B5%8B%E8%AF%95/</link>
       <pubDate>Mon, 30 Sep 2019 22:15:58 +0800</pubDate>
       
-      <guid>https://yixy.github.io/youzhilane/post/%E4%BA%91%E8%AE%A1%E7%AE%97/go%E8%AF%AD%E8%A8%80/go%E8%AF%AD%E8%A8%80%E6%B5%8B%E8%AF%951-%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95%E4%B8%8E%E5%9F%BA%E5%87%86%E6%B5%8B%E8%AF%95/</guid>
+      <guid>https://yixy.github.io/youzhilane/post/06%E4%BA%91%E8%AE%A1%E7%AE%97/go%E8%AF%AD%E8%A8%80/go%E8%AF%AD%E8%A8%80%E6%B5%8B%E8%AF%951-%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95%E4%B8%8E%E5%9F%BA%E5%87%86%E6%B5%8B%E8%AF%95/</guid>
       
         <description>
 
@@ -470,10 +1554,10 @@ BenchmarkPrints-4       2000000000               0.00 ns/op&lt;/pre&gt;&lt;/td&g
     
     <item>
       <title>Go语言测试(3)-go test缓存机制</title>
-      <link>https://yixy.github.io/youzhilane/post/%E4%BA%91%E8%AE%A1%E7%AE%97/go%E8%AF%AD%E8%A8%80/go%E8%AF%AD%E8%A8%80%E6%B5%8B%E8%AF%953-go-test%E7%BC%93%E5%AD%98%E6%9C%BA%E5%88%B6/</link>
+      <link>https://yixy.github.io/youzhilane/post/06%E4%BA%91%E8%AE%A1%E7%AE%97/go%E8%AF%AD%E8%A8%80/go%E8%AF%AD%E8%A8%80%E6%B5%8B%E8%AF%953-go-test%E7%BC%93%E5%AD%98%E6%9C%BA%E5%88%B6/</link>
       <pubDate>Mon, 30 Sep 2019 14:53:49 +0800</pubDate>
       
-      <guid>https://yixy.github.io/youzhilane/post/%E4%BA%91%E8%AE%A1%E7%AE%97/go%E8%AF%AD%E8%A8%80/go%E8%AF%AD%E8%A8%80%E6%B5%8B%E8%AF%953-go-test%E7%BC%93%E5%AD%98%E6%9C%BA%E5%88%B6/</guid>
+      <guid>https://yixy.github.io/youzhilane/post/06%E4%BA%91%E8%AE%A1%E7%AE%97/go%E8%AF%AD%E8%A8%80/go%E8%AF%AD%E8%A8%80%E6%B5%8B%E8%AF%953-go-test%E7%BC%93%E5%AD%98%E6%9C%BA%E5%88%B6/</guid>
       
         <description>
 
@@ -512,10 +1596,10 @@ BenchmarkPrints-4       2000000000               0.00 ns/op&lt;/pre&gt;&lt;/td&g
     
     <item>
       <title>Go语言测试(4)-基准测试的StartTimer函数与内存分配</title>
-      <link>https://yixy.github.io/youzhilane/post/%E4%BA%91%E8%AE%A1%E7%AE%97/go%E8%AF%AD%E8%A8%80/go%E8%AF%AD%E8%A8%80%E6%B5%8B%E8%AF%954-%E5%9F%BA%E5%87%86%E6%B5%8B%E8%AF%95%E7%9A%84starttimer%E5%87%BD%E6%95%B0%E4%B8%8E%E5%86%85%E5%AD%98%E5%88%86%E9%85%8D/</link>
+      <link>https://yixy.github.io/youzhilane/post/06%E4%BA%91%E8%AE%A1%E7%AE%97/go%E8%AF%AD%E8%A8%80/go%E8%AF%AD%E8%A8%80%E6%B5%8B%E8%AF%954-%E5%9F%BA%E5%87%86%E6%B5%8B%E8%AF%95%E7%9A%84starttimer%E5%87%BD%E6%95%B0%E4%B8%8E%E5%86%85%E5%AD%98%E5%88%86%E9%85%8D/</link>
       <pubDate>Sat, 28 Sep 2019 21:59:14 +0800</pubDate>
       
-      <guid>https://yixy.github.io/youzhilane/post/%E4%BA%91%E8%AE%A1%E7%AE%97/go%E8%AF%AD%E8%A8%80/go%E8%AF%AD%E8%A8%80%E6%B5%8B%E8%AF%954-%E5%9F%BA%E5%87%86%E6%B5%8B%E8%AF%95%E7%9A%84starttimer%E5%87%BD%E6%95%B0%E4%B8%8E%E5%86%85%E5%AD%98%E5%88%86%E9%85%8D/</guid>
+      <guid>https://yixy.github.io/youzhilane/post/06%E4%BA%91%E8%AE%A1%E7%AE%97/go%E8%AF%AD%E8%A8%80/go%E8%AF%AD%E8%A8%80%E6%B5%8B%E8%AF%954-%E5%9F%BA%E5%87%86%E6%B5%8B%E8%AF%95%E7%9A%84starttimer%E5%87%BD%E6%95%B0%E4%B8%8E%E5%86%85%E5%AD%98%E5%88%86%E9%85%8D/</guid>
       
         <description>
 
@@ -652,10 +1736,10 @@ go tool pprof -http=&amp;#34;:8080&amp;#34; intsize.test cpu.profile&lt;/pre&gt;
     
     <item>
       <title>判断整数的位数</title>
-      <link>https://yixy.github.io/youzhilane/post/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%A7%91%E5%AD%A6/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/%E5%88%A4%E6%96%AD%E6%95%B4%E6%95%B0%E7%9A%84%E4%BD%8D%E6%95%B0/</link>
+      <link>https://yixy.github.io/youzhilane/post/01%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%A7%91%E5%AD%A6/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/%E5%88%A4%E6%96%AD%E6%95%B4%E6%95%B0%E7%9A%84%E4%BD%8D%E6%95%B0/</link>
       <pubDate>Sat, 28 Sep 2019 21:26:56 +0800</pubDate>
       
-      <guid>https://yixy.github.io/youzhilane/post/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%A7%91%E5%AD%A6/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/%E5%88%A4%E6%96%AD%E6%95%B4%E6%95%B0%E7%9A%84%E4%BD%8D%E6%95%B0/</guid>
+      <guid>https://yixy.github.io/youzhilane/post/01%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%A7%91%E5%AD%A6/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/%E5%88%A4%E6%96%AD%E6%95%B4%E6%95%B0%E7%9A%84%E4%BD%8D%E6%95%B0/</guid>
       
         <description>
 
@@ -784,10 +1868,10 @@ BenchmarkStringSizeBySizeTable-4        151649162                8.16 ns/op&lt;/
     
     <item>
       <title>与etcd交互</title>
-      <link>https://yixy.github.io/youzhilane/post/%E5%88%86%E5%B8%83%E5%BC%8F/etcd/%E4%B8%8Eetcd%E4%BA%A4%E4%BA%92/</link>
+      <link>https://yixy.github.io/youzhilane/post/05%E5%88%86%E5%B8%83%E5%BC%8F/etcd/%E4%B8%8Eetcd%E4%BA%A4%E4%BA%92/</link>
       <pubDate>Sat, 28 Sep 2019 09:25:16 +0800</pubDate>
       
-      <guid>https://yixy.github.io/youzhilane/post/%E5%88%86%E5%B8%83%E5%BC%8F/etcd/%E4%B8%8Eetcd%E4%BA%A4%E4%BA%92/</guid>
+      <guid>https://yixy.github.io/youzhilane/post/05%E5%88%86%E5%B8%83%E5%BC%8F/etcd/%E4%B8%8Eetcd%E4%BA%A4%E4%BA%92/</guid>
       
         <description>
 
@@ -834,10 +1918,10 @@ BenchmarkStringSizeBySizeTable-4        151649162                8.16 ns/op&lt;/
     
     <item>
       <title>ImageMagick</title>
-      <link>https://yixy.github.io/youzhilane/post/%E5%85%B6%E4%BB%96/%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/imagemagick/</link>
+      <link>https://yixy.github.io/youzhilane/post/11%E5%85%B6%E4%BB%96/%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/imagemagick/</link>
       <pubDate>Thu, 26 Sep 2019 12:50:12 +0800</pubDate>
       
-      <guid>https://yixy.github.io/youzhilane/post/%E5%85%B6%E4%BB%96/%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/imagemagick/</guid>
+      <guid>https://yixy.github.io/youzhilane/post/11%E5%85%B6%E4%BB%96/%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/imagemagick/</guid>
       
         <description>
 
@@ -931,9 +2015,13 @@ identify test.png | cut -d &amp;#39; &amp;#39; -f 3 | cut -d &amp;#39;x&amp;#39;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
 &lt;pre class=&#34;chroma&#34;&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
 &lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;
 &lt;td class=&#34;lntd&#34;&gt;
-&lt;pre class=&#34;chroma&#34;&gt;for file in *.jpg; do convert $file ${file%%.*}.png; done&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;pre class=&#34;chroma&#34;&gt;for file in *.jpg; do convert $file ${file%%.*}.png; done
+for file in *.png; do convert $file ${file%%.*}.jpg; done
+for file in *.gif; do convert $file ${file%%.*}.jpg; done&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;p&gt;批量生成缩略图&lt;/p&gt;
@@ -998,6 +2086,70 @@ identify test.png | cut -d &amp;#39; &amp;#39; -f 3 | cut -d &amp;#39;x&amp;#39;
 &lt;p&gt;&lt;a href=&#34;https://www.cnblogs.com/yymn/p/4479805.html&#34;&gt;https://www.cnblogs.com/yymn/p/4479805.html&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;a href=&#34;https://www.cnblogs.com/mfryf/p/7492500.html&#34;&gt;https://www.cnblogs.com/mfryf/p/7492500.html&lt;/a&gt;&lt;/p&gt;
+</description>
+      
+    </item>
+    
+    <item>
+      <title>数据库系统(01)概念-数据库系统概念</title>
+      <link>https://yixy.github.io/youzhilane/post/04%E6%95%B0%E6%8D%AE%E5%BA%93/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E6%A6%82%E5%BF%B5/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F01%E6%A6%82%E5%BF%B5-%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E6%A6%82%E5%BF%B5/</link>
+      <pubDate>Sun, 22 Sep 2019 21:41:52 +0800</pubDate>
+      
+      <guid>https://yixy.github.io/youzhilane/post/04%E6%95%B0%E6%8D%AE%E5%BA%93/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E6%A6%82%E5%BF%B5/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F01%E6%A6%82%E5%BF%B5-%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E6%A6%82%E5%BF%B5/</guid>
+      
+        <description>
+
+&lt;h2 id=&#34;0-数据库系统的产生&#34;&gt;0. 数据库系统的产生&lt;/h2&gt;
+
+&lt;p&gt;人工管理-&amp;gt;文件系统-&amp;gt;数据库系统&lt;/p&gt;
+
+&lt;h2 id=&#34;1-基本概念&#34;&gt;1. 基本概念&lt;/h2&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://yixy.github.io/youzhilane/youzhilane/img/数据库系统概念-数据库系统.jpg&#34; alt=&#34;数据库系统&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;从下往上看这张图。&lt;/p&gt;
+
+&lt;p&gt;图中的下半部分实际上就描述了一个数据库系统。典型的，关系型数据库中存放的就是表数据。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;数据库：一个相互关联的数据信息的集合，它们被以一定方式存储在一起。用户可以对数据库中的数据进行新增、修改、删除、查询等操作。&lt;/li&gt;
+&lt;li&gt;数据库管理系统（DBMS）：为管理数据库而设计的计算机软件管理系统。DBMS不仅负责对数据的管理（定义信息存储结构，提供信息查询机制，数据库的存储及事务处理），还必须提供所存储信息的安全性保证。&lt;/li&gt;
+&lt;li&gt;数据库系统：指数据库、DBMS、数据库管理员（DBA）、数据库应用程序（DBAP）等构成的系统。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;图中的中间部分描述了DBA如何使用数据库语言通过DBMS去定义、查询及管理维护数据库，以及开发人员如何使用数据库语言来进行数据库应用程序开发。对于不掌握数据库语言的最终用户，可以通过编写的数据库应用程序（DBAP）来使用数据库。&lt;/p&gt;
+
+&lt;p&gt;数据库语言包含DDL和DML。数据库定义和数据操纵语言并不是两种分离的语言，相反，它们简单地构成了单一的数据库语言的一部分，比如广泛使用的SQL语言。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;数据定义语言（data-definition language）：DDL，用于定义数据库模式（数据存储定义、约束、授权等，DDL的输出作为数据库元素被放到数据库的数据字典中）。&lt;/li&gt;
+&lt;li&gt;数据操作语言（data-manipulation language）：DML，用于表达数据库查询和更新（增删改查）。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;图中的上半部分描述了数据库的设计过程，指导怎样由现实世界到信息世界，再到计算机世界，进行抽象建模和设计。（为什么要有设计过程？以关系型数据库为例，因为需要解决数据库定义哪些表，这些表是怎么抽象出来的，为什么要定义这些表。）&lt;/p&gt;
+
+&lt;p&gt;数据库的设计主要包含概念设计和逻辑设计两个阶段。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;概念设计（数据建模/抽象）：将真实世界的问题转换为概念模型，重点在于描述数据以及它们之间的关系，通常使用ER图或规范化算法等方法来实现（抽象出E-R图）。&lt;/li&gt;
+&lt;li&gt;逻辑设计：将高层的概念模式映射到要使用的数据库实现数据模型上（定义出数据模式）。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;2-学习数据库系统概念需要关注的主要内容&#34;&gt;2. 学习数据库系统概念需要关注的主要内容&lt;/h2&gt;
+
+&lt;p&gt;基于上述数据库相关的基本概念，将需要重点关注的内容分为以下几块，并进行逐一介绍。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;数据库设计：理解数据-数据模式-数据模型，学习关系模型，学习ER模型，学习数据库设计方法（概念设计、逻辑设计）&lt;/li&gt;
+&lt;li&gt;数据库语言：包括DDL和DML，学习最常用的SQL语言&lt;/li&gt;
+&lt;li&gt;DBMS实现技术：数据库的存储、查询、事务控制实现原理&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;相关链接&#34;&gt;相关链接&lt;/h2&gt;
+
+&lt;p&gt;《数据库系统》，哈工大，战德臣，幕客网上有相关视频，分为上中下&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://www.icourse163.org/u/981194?userId=1507001&amp;amp;_trace_c_p_k2_=de1921fe92e844fd9a1fd183586497a2&#34;&gt;https://www.icourse163.org/u/981194?userId=1507001&amp;amp;_trace_c_p_k2_=de1921fe92e844fd9a1fd183586497a2&lt;/a&gt;&lt;/p&gt;
 </description>
       
     </item>
